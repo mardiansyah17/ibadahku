@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ibadahku/src/core/theme/app_pallete.dart';
 import 'package:ibadahku/src/core/utils/location_service.dart';
+import 'package:ibadahku/src/core/widgets/app_loading.dart';
 import 'package:ibadahku/src/features/prayer_time/presentation/blocs/prayer_time_bloc/prayer_time_bloc.dart';
 import 'package:ibadahku/src/features/prayer_time/presentation/pages/no_location_screen.dart';
 import 'package:ibadahku/src/features/prayer_time/presentation/widgets/prayer_time_list_widget.dart';
@@ -31,6 +32,10 @@ class _PrayerTimeScreenState extends State<PrayerTimeScreen> {
           builder: (context, state) {
             if (state is LocationIsNotExist) {
               return const NoLocationScreen();
+            }
+
+            if (state is PrayerTimeLoading) {
+              return const AppLoading();
             }
 
             if (state is PrayerTimeLoaded) {

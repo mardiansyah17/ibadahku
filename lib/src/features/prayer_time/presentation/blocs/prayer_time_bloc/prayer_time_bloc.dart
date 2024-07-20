@@ -14,7 +14,7 @@ class PrayerTimeBloc extends Bloc<PrayerTimeEvent, PrayerTimeState> {
   PrayerTimeBloc({required GetPrayerTime getPrayerTime})
       : _getPrayerTime = getPrayerTime,
         super(PrayerTimeInitial()) {
-    on<PrayerTimeEvent>((event, emit) async {});
+    on<PrayerTimeEvent>((event, emit) => emit(PrayerTimeLoading()));
     on<LoadPrayerTime>(_onLoadPrayerTime);
   }
 

@@ -15,12 +15,12 @@ class PrayerTimeListWidget extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        PrayerTimeItemWidget(),
-        PrayerTimeItemWidget(),
-        PrayerTimeItemWidget(),
-        PrayerTimeItemWidget(),
-        PrayerTimeItemWidget(),
-        PrayerTimeItemWidget(),
+        PrayerTimeItemWidget(name: "Imsak", time: prayerTime.imsak),
+        PrayerTimeItemWidget(name: "Subuh", time: prayerTime.subuh),
+        PrayerTimeItemWidget(name: "Dzuhur", time: prayerTime.dzuhur),
+        PrayerTimeItemWidget(name: "Ashar", time: prayerTime.ashar),
+        PrayerTimeItemWidget(name: "Maghrib", time: prayerTime.maghrib),
+        PrayerTimeItemWidget(name: "Isya", time: prayerTime.isya),
       ],
     );
   }
