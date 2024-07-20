@@ -10,4 +10,16 @@ class PrayerTimeModel extends PrayerTime {
     required super.maghrib,
     required super.isya,
   });
+
+  factory PrayerTimeModel.fromJson(Map<String, dynamic> json) {
+    return PrayerTimeModel(
+      imsak: json['imsak'],
+      subuh: json['subuh'],
+      dhuha: json['dhuha'],
+      dzuhur: json['dzuhur'],
+      ashar: json['ashar'],
+      maghrib: json['maghrib'],
+      isya: json['isya'],
+    );
+  }
 }

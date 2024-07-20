@@ -11,12 +11,13 @@ class PrayerTimeInitial extends PrayerTimeState {}
 
 class PrayerTimeLoading extends PrayerTimeState {}
 
-// state cek apakah sudah mendapatkan lokasi
-class PrayerTimeLocationLoaded extends PrayerTimeState {
-  final Map<String, double> location;
+class LocationIsNotExist extends PrayerTimeState {}
 
-  const PrayerTimeLocationLoaded(this.location);
+class PrayerTimeLoaded extends PrayerTimeState {
+  final PrayerTime prayerTime;
+
+  const PrayerTimeLoaded(this.prayerTime);
 
   @override
-  List<Object> get props => [location];
+  List<Object> get props => [prayerTime];
 }

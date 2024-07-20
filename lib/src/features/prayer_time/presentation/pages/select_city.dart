@@ -23,15 +23,6 @@ class _SelectCityState extends State<SelectCity> {
         title: AddressInputWidget(
           controller: controller,
         ),
-        actions: [
-          IconButton(
-              onPressed: () async {},
-              icon: Icon(
-                Icons.location_on,
-                size: 30,
-                color: AppPallete.primary,
-              ))
-        ],
       ),
       body: Center(
         child: Text(controller.text),
