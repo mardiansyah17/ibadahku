@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ibadahku/src/core/theme/app_pallete.dart';
@@ -5,9 +7,11 @@ import 'package:ibadahku/src/core/widgets/app_button.dart';
 import 'package:ibadahku/src/core/widgets/app_loading.dart';
 import 'package:ibadahku/src/features/prayer_time/presentation/blocs/prayer_time_bloc/prayer_time_bloc.dart';
 import 'package:ibadahku/src/features/prayer_time/presentation/pages/no_location_screen.dart';
+import 'package:ibadahku/src/features/prayer_time/presentation/widgets/location_and_date_widget.dart';
+import 'package:ibadahku/src/features/prayer_time/presentation/widgets/prayer_time_count_down_widget.dart';
 import 'package:ibadahku/src/features/prayer_time/presentation/widgets/prayer_time_list_widget.dart';
 import 'package:intl/intl.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 
 class PrayerTimeScreen extends StatefulWidget {
   const PrayerTimeScreen({super.key});
@@ -64,7 +68,7 @@ class _PrayerTimeScreenState extends State<PrayerTimeScreen> {
                 children: [
                   Container(
                     height: 350,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       gradient: LinearGradient(
                         colors: [
                           AppPallete.primary,
@@ -74,62 +78,24 @@ class _PrayerTimeScreenState extends State<PrayerTimeScreen> {
                         end: Alignment.bottomRight,
                       ),
                     ),
-                    child: Center(
+                  ),
+                  SafeArea(
+                    child: Padding(
+                      padding: const EdgeInsets.all(10.0),
                       child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            "Ashar",
-                            style: TextStyle(
-                                fontSize: 20, color: AppPallete.white),
+                          LocationAndDateWidget(
+                            onDateTap: () {},
                           ),
-                          const SizedBox(height: 5),
-                          Text(
-                            "16.20",
-                            style: TextStyle(
-                                fontSize: 22, color: AppPallete.white),
+                          SizedBox(
+                            height: 25,
                           ),
-                          const SizedBox(height: 5),
-                          Text(
-                            "2 jam 4 menit 30 detik lagi",
-                            style: TextStyle(
-                                fontSize: 16, color: AppPallete.white),
-                          ),
+                          PrayerTimeCountDownWidget(),
                         ],
                       ),
                     ),
                   ),
-                  Positioned(
-                      top: 35,
-                      left: 15,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          GestureDetector(
-                            onTap: () async {
-                              SharedPreferences prefs =
-                                  await SharedPreferences.getInstance();
-                              prefs.remove('latitude');
-                              prefs.remove('longitude');
-                            },
-                            child: Text(
-                              "Palembang",
-                              style: TextStyle(
-                                fontSize: 16,
-                                color: AppPallete.white,
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 5,
-                          ),
-                          Text(
-                            "${DateFormat("EEEE, dd MMMM yyyy").format(DateTime.now())}",
-                            style: TextStyle(
-                                fontSize: 16, color: AppPallete.white),
-                          )
-                        ],
-                      )),
                   PrayerTimeListWidget(
                     prayerTime: state.prayerTime,
                   )

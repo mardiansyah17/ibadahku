@@ -11,7 +11,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initDepedencies();
   initializeDateFormatting('id');
-  Intl.defaultLocale = 'id';
+  Intl.defaultLocale = 'id_ID';
   runApp(MultiBlocProvider(
       providers: [BlocProvider(create: (_) => sl<PrayerTimeBloc>())],
       child: const MainApp()));
