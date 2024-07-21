@@ -13,10 +13,13 @@ class PrayerTimeLoading extends PrayerTimeState {}
 
 class LocationIsNotExist extends PrayerTimeState {}
 
+class InternetIsNotConnected extends PrayerTimeState {}
+
 class PrayerTimeLoaded extends PrayerTimeState {
   final PrayerTime prayerTime;
+  final Map<String, String> nextTime;
 
-  const PrayerTimeLoaded(this.prayerTime);
+  const PrayerTimeLoaded(this.prayerTime, this.nextTime);
 
   @override
   List<Object> get props => [prayerTime];

@@ -1,13 +1,12 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ibadahku/src/core/theme/app_pallete.dart';
-import 'package:ibadahku/src/core/utils/location_service.dart';
+import 'package:ibadahku/src/core/widgets/app_button.dart';
 import 'package:ibadahku/src/core/widgets/app_loading.dart';
 import 'package:ibadahku/src/features/prayer_time/presentation/blocs/prayer_time_bloc/prayer_time_bloc.dart';
 import 'package:ibadahku/src/features/prayer_time/presentation/pages/no_location_screen.dart';
 import 'package:ibadahku/src/features/prayer_time/presentation/widgets/prayer_time_list_widget.dart';
+import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PrayerTimeScreen extends StatefulWidget {
@@ -18,9 +17,12 @@ class PrayerTimeScreen extends StatefulWidget {
 }
 
 class _PrayerTimeScreenState extends State<PrayerTimeScreen> {
+  final String date = DateFormat("yyyy-MM-dd").format(DateTime.now());
+
   @override
   void initState() {
-    context.read<PrayerTimeBloc>().add(LoadPrayerTime());
+    context.read<PrayerTimeBloc>().add(LoadPrayerTime(date: date));
+
     super.initState();
   }
 
@@ -30,12 +32,31 @@ class _PrayerTimeScreenState extends State<PrayerTimeScreen> {
       body: SizedBox.expand(
         child: BlocBuilder<PrayerTimeBloc, PrayerTimeState>(
           builder: (context, state) {
+            if (state is PrayerTimeLoading) {
+              return const AppLoading();
+            }
             if (state is LocationIsNotExist) {
               return const NoLocationScreen();
             }
 
-            if (state is PrayerTimeLoading) {
-              return const AppLoading();
+            if (state is InternetIsNotConnected) {
+              return Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text("Tidak ada koneksi internet"),
+                    const SizedBox(height: 10),
+                    AppButton(
+                      text: "Coba lagi",
+                      onPressed: () {
+                        context
+                            .read<PrayerTimeBloc>()
+                            .add(LoadPrayerTime(date: date));
+                      },
+                    ),
+                  ],
+                ),
+              );
             }
 
             if (state is PrayerTimeLoaded) {
@@ -103,38 +124,14 @@ class _PrayerTimeScreenState extends State<PrayerTimeScreen> {
                             height: 5,
                           ),
                           Text(
-                            "Jum'at, 12 Februari 2021",
+                            "${DateFormat("EEEE, dd MMMM yyyy").format(DateTime.now())}",
                             style: TextStyle(
                                 fontSize: 16, color: AppPallete.white),
                           )
                         ],
                       )),
-                  Positioned(
-                    top: 280,
-                    left: 0,
-                    right: 0,
-                    bottom: 0,
-                    child: Container(
-                      padding: const EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                        boxShadow: [
-                          BoxShadow(
-                            color: Color(0xFF000000).withOpacity(0.1),
-                            offset: Offset(0, -5),
-                            blurRadius: 22,
-                            spreadRadius: 5,
-                          ),
-                        ],
-                        color: Colors.white,
-                        borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(30),
-                            topRight: Radius.circular(30)),
-                      ),
-                      child: Center(
-                          child: PrayerTimeListWidget(
-                        prayerTime: state.prayerTime,
-                      )),
-                    ),
+                  PrayerTimeListWidget(
+                    prayerTime: state.prayerTime,
                   )
                 ],
               );

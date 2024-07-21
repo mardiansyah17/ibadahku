@@ -3,6 +3,7 @@ import 'package:ibadahku/src/features/prayer_time/domain/entities/prayer_time.da
 class PrayerTimeModel extends PrayerTime {
   PrayerTimeModel({
     required super.imsak,
+    required super.tanggal,
     required super.subuh,
     required super.dhuha,
     required super.dzuhur,
@@ -14,6 +15,7 @@ class PrayerTimeModel extends PrayerTime {
   factory PrayerTimeModel.fromJson(Map<String, dynamic> json) {
     return PrayerTimeModel(
       imsak: json['imsak'],
+      tanggal: json['tanggal'],
       subuh: json['subuh'],
       dhuha: json['dhuha'],
       dzuhur: json['dzuhur'],

@@ -7,4 +7,8 @@ abstract class PrayerTimeEvent extends Equatable {
   List<Object> get props => [];
 }
 
-final class LoadPrayerTime extends PrayerTimeEvent {}
+final class LoadPrayerTime extends PrayerTimeEvent {
+  final String date;
+
+  const LoadPrayerTime({required this.date});
+}

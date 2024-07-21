@@ -18,7 +18,7 @@ class PrayerTimeRemoteDatasourceImpl implements PrayerTimeRemoteDatasource {
     try {
       final response =
           await dio.get("$baseUrlPrayerTime/sholat/jadwal/$city/$date");
-      log(city.toString());
+
       return PrayerTimeModel.fromJson(response.data['data']['jadwal']);
     } on DioException catch (e) {
       log(e.response!.statusCode.toString());
