@@ -36,13 +36,16 @@ class PrayerTimeBloc extends Bloc<PrayerTimeEvent, PrayerTimeState> {
     if (!checkInternetConnection) {
       return emit(InternetIsNotConnected());
     }
-    DateTime now = DateTime.now();
-    final failureOrPrayerTime = await _getPrayerTime(
-        GetPrayerTimeParams(city: cityId, date: event.date));
+    final date = event.date;
+    log(date);
+    final DateTime dateTime = DateTime.parse(date);
+
+    final failureOrPrayerTime =
+        await _getPrayerTime(GetPrayerTimeParams(city: cityId, date: date));
     failureOrPrayerTime.fold((l) {
       log("ada error ${l.errorMessage}");
     }, (r) {
-      emit(PrayerTimeLoaded(r, _getNextTime(r)));
+      emit(PrayerTimeLoaded(cityId: cityId, date: dateTime, prayerTime: r));
     });
   }
 

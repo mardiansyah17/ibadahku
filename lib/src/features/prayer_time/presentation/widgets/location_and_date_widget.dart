@@ -1,24 +1,25 @@
+import 'dart:developer';
+
 import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ibadahku/src/core/config/datepicker_config.dart';
 import 'package:ibadahku/src/core/theme/app_pallete.dart';
+import 'package:ibadahku/src/features/prayer_time/presentation/blocs/prayer_time_bloc/prayer_time_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class LocationAndDateWidget extends StatelessWidget {
+class LocationAndDateWidget extends StatefulWidget {
   final void Function() onDateTap;
-  const LocationAndDateWidget({super.key, required this.onDateTap});
+  final DateTime dateTime;
+  const LocationAndDateWidget(
+      {super.key, required this.onDateTap, required this.dateTime});
 
-  onDateTapHandler(BuildContext context) async {
-    await showCalendarDatePicker2Dialog(
-      context: context,
-      config: CalendarDatePicker2WithActionButtonsConfig(),
-      dialogSize: const Size(325, 370),
-      borderRadius: BorderRadius.circular(15),
-      // value: _dialogCalendarPickerValue,
-      dialogBackgroundColor: Colors.white,
-    );
-  }
+  @override
+  State<LocationAndDateWidget> createState() => _LocationAndDateWidgetState();
+}
 
+class _LocationAndDateWidgetState extends State<LocationAndDateWidget> {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -41,14 +42,36 @@ class LocationAndDateWidget extends StatelessWidget {
         SizedBox(
           height: 5,
         ),
-        GestureDetector(
-          onTap: () => onDateTapHandler(context),
-          child: Text(
-            "${DateFormat("EEEE, dd MMMM yyyy").format(DateTime.now())}",
-            style: TextStyle(fontSize: 16, color: AppPallete.white),
-          ),
-        ),
+        _datePicker(context, widget.dateTime),
       ],
+    );
+  }
+
+  GestureDetector _datePicker(BuildContext context, DateTime dateTime) {
+    final prayerTimeBloc = context.read<PrayerTimeBloc>();
+
+    CalendarDatePicker2WithActionButtonsConfig config = datePickerConfig;
+    return GestureDetector(
+      onTap: () async {
+        final value = await showCalendarDatePicker2Dialog(
+          context: context,
+          config: config,
+          dialogSize: const Size(325, 370),
+          borderRadius: BorderRadius.circular(15),
+          dialogBackgroundColor: Colors.white,
+          value: [dateTime],
+        );
+        if (value != null) {
+          if (context.mounted) {
+            prayerTimeBloc.add(LoadPrayerTime(
+                date: DateFormat("yyyy-MM-dd").format(value.first!)));
+          }
+        }
+      },
+      child: Text(
+        "${DateFormat("EEEE, dd MMMM yyyy").format(dateTime)}",
+        style: TextStyle(fontSize: 16, color: AppPallete.white),
+      ),
     );
   }
 }

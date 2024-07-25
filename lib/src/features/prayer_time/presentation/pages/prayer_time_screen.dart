@@ -87,6 +87,7 @@ class _PrayerTimeScreenState extends State<PrayerTimeScreen> {
                         children: [
                           LocationAndDateWidget(
                             onDateTap: () {},
+                            dateTime: state.date,
                           ),
                           SizedBox(
                             height: 25,
@@ -97,7 +98,7 @@ class _PrayerTimeScreenState extends State<PrayerTimeScreen> {
                     ),
                   ),
                   PrayerTimeListWidget(
-                    prayerTime: state.prayerTime,
+                    prayerTime: state.prayerTime!,
                   )
                 ],
               );
