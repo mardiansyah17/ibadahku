@@ -86,7 +86,6 @@ class _PrayerTimeScreenState extends State<PrayerTimeScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           LocationAndDateWidget(
-                            onDateTap: () {},
                             dateTime: state.date,
                           ),
                           SizedBox(

@@ -1,19 +1,17 @@
-import 'dart:developer';
-
 import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ibadahku/src/core/config/datepicker_config.dart';
 import 'package:ibadahku/src/core/theme/app_pallete.dart';
 import 'package:ibadahku/src/features/prayer_time/presentation/blocs/prayer_time_bloc/prayer_time_bloc.dart';
+import 'package:ibadahku/src/features/prayer_time/presentation/pages/select_city.dart';
 import 'package:intl/intl.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LocationAndDateWidget extends StatefulWidget {
-  final void Function() onDateTap;
   final DateTime dateTime;
-  const LocationAndDateWidget(
-      {super.key, required this.onDateTap, required this.dateTime});
+  const LocationAndDateWidget({super.key, required this.dateTime});
 
   @override
   State<LocationAndDateWidget> createState() => _LocationAndDateWidgetState();
@@ -27,9 +25,10 @@ class _LocationAndDateWidgetState extends State<LocationAndDateWidget> {
       children: [
         GestureDetector(
           onTap: () async {
-            SharedPreferences prefs = await SharedPreferences.getInstance();
-            prefs.remove('latitude');
-            prefs.remove('longitude');
+            Navigator.push(
+                context,
+                PageTransition(
+                    type: PageTransitionType.rightToLeft, child: SelectCity()));
           },
           child: Text(
             "Palembang",
