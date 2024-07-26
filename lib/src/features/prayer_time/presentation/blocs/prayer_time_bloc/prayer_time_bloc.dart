@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:ibadahku/src/features/prayer_time/domain/entities/city.dart';
 import 'package:ibadahku/src/features/prayer_time/domain/entities/prayer_time.dart';
 import 'package:ibadahku/src/features/prayer_time/domain/usecases/get_prayer_time.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
@@ -37,7 +38,7 @@ class PrayerTimeBloc extends Bloc<PrayerTimeEvent, PrayerTimeState> {
       return emit(InternetIsNotConnected());
     }
     final date = event.date;
-    log(date);
+
     final DateTime dateTime = DateTime.parse(date);
 
     final failureOrPrayerTime =
@@ -45,7 +46,10 @@ class PrayerTimeBloc extends Bloc<PrayerTimeEvent, PrayerTimeState> {
     failureOrPrayerTime.fold((l) {
       log("ada error ${l.errorMessage}");
     }, (r) {
-      emit(PrayerTimeLoaded(cityId: cityId, date: dateTime, prayerTime: r));
+      emit(PrayerTimeLoaded(
+          city: City(id: cityId, name: cityName),
+          date: dateTime,
+          prayerTime: r));
     });
   }
 

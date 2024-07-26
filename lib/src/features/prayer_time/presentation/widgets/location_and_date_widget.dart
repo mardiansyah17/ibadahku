@@ -3,15 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ibadahku/src/core/config/datepicker_config.dart';
 import 'package:ibadahku/src/core/theme/app_pallete.dart';
+import 'package:ibadahku/src/features/prayer_time/domain/entities/city.dart';
 import 'package:ibadahku/src/features/prayer_time/presentation/blocs/prayer_time_bloc/prayer_time_bloc.dart';
 import 'package:ibadahku/src/features/prayer_time/presentation/pages/select_city.dart';
 import 'package:intl/intl.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class LocationAndDateWidget extends StatefulWidget {
   final DateTime dateTime;
-  const LocationAndDateWidget({super.key, required this.dateTime});
+  final City city;
+  const LocationAndDateWidget(
+      {super.key, required this.dateTime, required this.city});
 
   @override
   State<LocationAndDateWidget> createState() => _LocationAndDateWidgetState();
@@ -28,10 +30,13 @@ class _LocationAndDateWidgetState extends State<LocationAndDateWidget> {
             Navigator.push(
                 context,
                 PageTransition(
-                    type: PageTransitionType.rightToLeft, child: SelectCity()));
+                  type: PageTransitionType.rightToLeft,
+                  child: const SelectCity(),
+                  duration: const Duration(milliseconds: 300),
+                ));
           },
           child: Text(
-            "Palembang",
+            widget.city.name,
             style: TextStyle(
               fontSize: 16,
               color: AppPallete.white,

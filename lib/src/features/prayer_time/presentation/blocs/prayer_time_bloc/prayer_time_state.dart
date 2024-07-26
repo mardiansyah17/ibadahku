@@ -17,13 +17,13 @@ class InternetIsNotConnected extends PrayerTimeState {}
 
 class PrayerTimeLoaded extends PrayerTimeState {
   final DateTime date;
-  final String cityId;
+  final City city;
   final PrayerTime? prayerTime;
   final Map<String, String>? nextTime;
 
   const PrayerTimeLoaded({
     required this.date,
-    required this.cityId,
+    required this.city,
     this.prayerTime,
     this.nextTime,
   });

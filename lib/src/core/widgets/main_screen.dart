@@ -7,14 +7,15 @@ import 'package:ibadahku/src/features/prayer_time/presentation/pages/prayer_time
 import 'package:ibadahku/src/features/quran/presentation/pages/quran_screen.dart';
 
 class MainScreen extends StatefulWidget {
-  const MainScreen({super.key});
+  final int? index;
+  const MainScreen({super.key, this.index = 0});
 
   @override
   State<MainScreen> createState() => _MainScreenState();
 }
 
 class _MainScreenState extends State<MainScreen> {
-  int _selectedIndex = 0;
+  int? _selectedIndex;
   static const List<Widget> _widgetOptions = <Widget>[
     PrayerTimeScreen(),
     QuranScreen(),
@@ -22,13 +23,25 @@ class _MainScreenState extends State<MainScreen> {
   ];
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    setState(() {
+      _selectedIndex = widget.index ?? 0;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _widgetOptions[_selectedIndex],
+      body: IndexedStack(
+        index: _selectedIndex,
+        children: _widgetOptions,
+      ),
       bottomNavigationBar: CurvedNavigationBar(
         buttonBackgroundColor: AppPallete.primary,
         backgroundColor: AppPallete.second,
-        index: _selectedIndex,
+        index: _selectedIndex!,
         items: <Widget>[
           BottomNavItem(
             svg: "prayer",

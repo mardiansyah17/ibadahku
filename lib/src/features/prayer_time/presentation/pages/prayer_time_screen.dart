@@ -87,6 +87,7 @@ class _PrayerTimeScreenState extends State<PrayerTimeScreen> {
                         children: [
                           LocationAndDateWidget(
                             dateTime: state.date,
+                            city: state.city,
                           ),
                           SizedBox(
                             height: 25,

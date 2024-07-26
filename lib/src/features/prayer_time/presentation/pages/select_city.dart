@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ibadahku/src/core/theme/app_pallete.dart';
+import 'package:ibadahku/src/core/widgets/main_screen.dart';
 import 'package:ibadahku/src/features/prayer_time/presentation/blocs/city_bloc/city_bloc.dart';
+import 'package:page_transition/page_transition.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SelectCity extends StatefulWidget {
   const SelectCity({super.key});
@@ -45,8 +48,21 @@ class _SelectCityState extends State<SelectCity> {
                   final city = state.cities[index];
                   return ListTile(
                     title: Text(city.name),
-                    onTap: () {
-                      Navigator.pop(context, city);
+                    onTap: () async {
+                      final SharedPreferences prefs =
+                          await SharedPreferences.getInstance();
+                      prefs.setString('cityId', city.id);
+                      prefs.setString('cityName', city.name);
+                      if (context.mounted) {
+                        Navigator.push(
+                            context,
+                            PageTransition(
+                                type: PageTransitionType.leftToRight,
+                                duration: const Duration(milliseconds: 300),
+                                child: const MainScreen(
+                                  index: 0,
+                                )));
+                      }
                     },
                   );
                 },
