@@ -32,6 +32,7 @@ class _PrayerTimeScreenState extends State<PrayerTimeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    log('haha');
     return Scaffold(
       body: SizedBox.expand(
         child: BlocBuilder<PrayerTimeBloc, PrayerTimeState>(

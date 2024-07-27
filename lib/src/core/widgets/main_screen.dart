@@ -8,7 +8,7 @@ import 'package:ibadahku/src/features/quran/presentation/pages/quran_screen.dart
 
 class MainScreen extends StatefulWidget {
   final int? index;
-  const MainScreen({super.key, this.index = 0});
+  const MainScreen({super.key, this.index = 1});
 
   @override
   State<MainScreen> createState() => _MainScreenState();
@@ -24,10 +24,9 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     setState(() {
-      _selectedIndex = widget.index ?? 0;
+      _selectedIndex = widget.index ?? 1;
     });
   }
 
@@ -35,7 +34,7 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: IndexedStack(
-        index: _selectedIndex,
+        index: 1,
         children: _widgetOptions,
       ),
       bottomNavigationBar: CurvedNavigationBar(
