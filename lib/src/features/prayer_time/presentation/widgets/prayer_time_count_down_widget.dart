@@ -1,8 +1,58 @@
-import 'package:flutter/material.dart';
-import 'package:ibadahku/src/core/theme/app_pallete.dart';
+import 'dart:async';
+import 'dart:developer';
 
-class PrayerTimeCountDownWidget extends StatelessWidget {
-  const PrayerTimeCountDownWidget({super.key});
+import 'package:flutter/material.dart';
+import 'package:ibadahku/src/core/extensions/datetime_extension.dart';
+import 'package:ibadahku/src/core/extensions/string_extension.dart';
+import 'package:ibadahku/src/core/theme/app_pallete.dart';
+import 'package:ibadahku/src/features/prayer_time/domain/entities/prayer_time.dart';
+import 'package:intl/intl.dart';
+
+class PrayerTimeCountDownWidget extends StatefulWidget {
+  final Map<String, String>? nextTime;
+  final PrayerTime prayerTime;
+  const PrayerTimeCountDownWidget(
+      {super.key, required this.nextTime, required this.prayerTime});
+
+  @override
+  State<PrayerTimeCountDownWidget> createState() =>
+      _PrayerTimeCountDownWidgetState();
+}
+
+class _PrayerTimeCountDownWidgetState extends State<PrayerTimeCountDownWidget> {
+  String? counterString;
+  Timer? _timer;
+
+  @override
+  void initState() {
+    DateTime waktuSholat =
+        DateFormat("EEEE, dd/MM/yyyy").parse(widget.prayerTime.tanggal);
+
+    if (waktuSholat.isToday) {
+      counter();
+    }
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _timer!.cancel();
+  }
+
+  void counter() {
+    DateTime waktuSholat = DateFormat("EEEE, dd/MM/yyyy HH:mm")
+        .parse("${widget.prayerTime.tanggal} ${widget.nextTime!.values.first}");
+
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      DateTime now = DateTime.now();
+      Duration rentang = waktuSholat.difference(now);
+      setState(() {
+        counterString =
+            "${rentang.inHours} jam ${rentang.inMinutes.remainder(60)} menit ${rentang.inSeconds.remainder(60)} detik lagi";
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -11,18 +61,22 @@ class PrayerTimeCountDownWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            "Ashar",
-            style: TextStyle(fontSize: 20, color: AppPallete.white),
+            widget.nextTime == null
+                ? "Isya"
+                : widget.nextTime!.keys.first.toCapitalized(),
+            style: const TextStyle(fontSize: 20, color: AppPallete.white),
           ),
           const SizedBox(height: 5),
           Text(
-            "16.20",
-            style: TextStyle(fontSize: 22, color: AppPallete.white),
+            widget.nextTime == null
+                ? widget.prayerTime.isya
+                : widget.nextTime!.values.first,
+            style: const TextStyle(fontSize: 22, color: AppPallete.white),
           ),
           const SizedBox(height: 5),
           Text(
-            "2 jam 4 menit 30 detik lagi",
-            style: TextStyle(fontSize: 16, color: AppPallete.white),
+            counterString ?? "",
+            style: const TextStyle(fontSize: 16, color: AppPallete.white),
           ),
         ],
       ),

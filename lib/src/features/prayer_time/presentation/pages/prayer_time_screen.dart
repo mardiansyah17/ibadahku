@@ -92,13 +92,17 @@ class _PrayerTimeScreenState extends State<PrayerTimeScreen> {
                           SizedBox(
                             height: 25,
                           ),
-                          PrayerTimeCountDownWidget(),
+                          PrayerTimeCountDownWidget(
+                            nextTime: state.nextTime,
+                            prayerTime: state.prayerTime!,
+                          ),
                         ],
                       ),
                     ),
                   ),
                   PrayerTimeListWidget(
                     prayerTime: state.prayerTime!,
+                    nextTime: state.nextTime!,
                   )
                 ],
               );

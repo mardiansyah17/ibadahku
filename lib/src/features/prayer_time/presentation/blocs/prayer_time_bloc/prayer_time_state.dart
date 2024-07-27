@@ -20,11 +20,13 @@ class PrayerTimeLoaded extends PrayerTimeState {
   final City city;
   final PrayerTime? prayerTime;
   final Map<String, String>? nextTime;
+  final Map<String, String>? isyaTime;
 
   const PrayerTimeLoaded({
     required this.date,
     required this.city,
     this.prayerTime,
     this.nextTime,
+    this.isyaTime,
   });
 }

@@ -47,22 +47,27 @@ class PrayerTimeBloc extends Bloc<PrayerTimeEvent, PrayerTimeState> {
       log("ada error ${l.errorMessage}");
     }, (r) {
       emit(PrayerTimeLoaded(
-          city: City(id: cityId, name: cityName),
-          date: dateTime,
-          prayerTime: r));
+        city: City(id: cityId, name: cityName),
+        date: dateTime,
+        prayerTime: r,
+        nextTime: _getNextTime(r),
+      ));
     });
   }
 
-  Map<String, String> _getNextTime(PrayerTime prayerTime) {
+  Map<String, String>? _getNextTime(PrayerTime prayerTime) {
     DateTime now = DateTime.now();
-    log(prayerTime.tanggal);
-    // prayerTime.toMap().forEach((key, item) {
-    //   log("$key : $item");
-    // });
+    late List result = [];
+    prayerTime.toMap().forEach((key, item) {
+      int jam = int.parse(item.split(":")[0]);
+      int menit = int.parse(item.split(":")[1]);
 
-    return {
-      "nextTime": "12:00",
-      "nextPrayer": "Dzuhur",
-    };
+      DateTime waktuSholat = DateTime(now.year, now.month, now.day, jam, menit);
+      if (waktuSholat.isAfter(now) && now.isBefore(waktuSholat)) {
+        result.add({key: item});
+      }
+    });
+
+    return result.firstOrNull;
   }
 }

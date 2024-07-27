@@ -4,9 +4,11 @@ import 'package:ibadahku/src/features/prayer_time/presentation/widgets/prayer_ti
 
 class PrayerTimeListWidget extends StatelessWidget {
   final PrayerTime prayerTime;
+  final Map<String, dynamic> nextTime;
   const PrayerTimeListWidget({
     super.key,
     required this.prayerTime,
+    required this.nextTime,
   });
 
   @override
@@ -36,12 +38,10 @@ class PrayerTimeListWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            PrayerTimeItemWidget(name: "Imsak", time: prayerTime.imsak),
-            PrayerTimeItemWidget(name: "Subuh", time: prayerTime.subuh),
-            PrayerTimeItemWidget(name: "Dzuhur", time: prayerTime.dzuhur),
-            PrayerTimeItemWidget(name: "Ashar", time: prayerTime.ashar),
-            PrayerTimeItemWidget(name: "Maghrib", time: prayerTime.maghrib),
-            PrayerTimeItemWidget(name: "Isya", time: prayerTime.isya),
+            PrayerTimeItemWidget(
+                name: "Imsak",
+                time: prayerTime.imsak,
+                isActive: nextTime.keys.first == "imsak"),
           ],
         )),
       ),

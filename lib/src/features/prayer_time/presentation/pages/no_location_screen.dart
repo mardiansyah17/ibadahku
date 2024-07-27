@@ -1,10 +1,7 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:ibadahku/src/core/widgets/app_button.dart';
 import 'package:ibadahku/src/features/prayer_time/presentation/pages/select_city.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class NoLocationScreen extends StatelessWidget {
   const NoLocationScreen({super.key});
@@ -19,11 +16,6 @@ class NoLocationScreen extends StatelessWidget {
         AppButton(
           text: "Pilih lokasi",
           onPressed: () async {
-            final SharedPreferences prefs =
-                await SharedPreferences.getInstance();
-            prefs.setString('cityId', "0813");
-            prefs.setString('cityName', "Penukal abab lematang ilir");
-            return;
             Navigator.push(
                 context,
                 PageTransition(

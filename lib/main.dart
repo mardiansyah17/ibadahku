@@ -5,8 +5,6 @@ import 'package:ibadahku/src/core/theme/app_theme.dart';
 import 'package:ibadahku/src/core/widgets/main_screen.dart';
 import 'package:ibadahku/src/features/prayer_time/presentation/blocs/city_bloc/city_bloc.dart';
 import 'package:ibadahku/src/features/prayer_time/presentation/blocs/prayer_time_bloc/prayer_time_bloc.dart';
-import 'package:ibadahku/src/features/prayer_time/presentation/pages/prayer_time_screen.dart';
-import 'package:ibadahku/src/features/prayer_time/presentation/pages/select_city.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 

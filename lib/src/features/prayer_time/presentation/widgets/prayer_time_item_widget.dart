@@ -4,10 +4,12 @@ import 'package:ibadahku/src/core/theme/app_pallete.dart';
 class PrayerTimeItemWidget extends StatelessWidget {
   final String name;
   final String time;
+  final bool isActive;
   const PrayerTimeItemWidget({
     super.key,
     required this.name,
     required this.time,
+    this.isActive = false,
   });
 
   @override
@@ -16,7 +18,7 @@ class PrayerTimeItemWidget extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
       margin: const EdgeInsets.only(bottom: 20),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: isActive ? AppPallete.primary : Colors.white,
         boxShadow: [
           BoxShadow(
             color: const Color(0xFF000000).withOpacity(0.1),
@@ -26,21 +28,27 @@ class PrayerTimeItemWidget extends StatelessWidget {
           ),
         ],
         border: Border.all(
-          color: AppPallete.primary,
+          color: AppPallete.second,
         ),
         borderRadius: BorderRadius.circular(10),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(name),
+          Text(name,
+              style: TextStyle(
+                color: isActive ? Colors.white : AppPallete.primary,
+              )),
           Row(
             children: [
-              Text(time),
+              Text(time,
+                  style: TextStyle(
+                    color: isActive ? Colors.white : AppPallete.primary,
+                  )),
               const SizedBox(width: 10),
-              const Icon(
+              Icon(
                 Icons.notifications_on,
-                color: AppPallete.second,
+                color: isActive ? Colors.white : AppPallete.primary,
               ),
             ],
           )
