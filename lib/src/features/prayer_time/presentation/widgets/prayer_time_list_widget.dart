@@ -4,11 +4,11 @@ import 'package:ibadahku/src/features/prayer_time/presentation/widgets/prayer_ti
 
 class PrayerTimeListWidget extends StatelessWidget {
   final PrayerTime prayerTime;
-  final Map<String, dynamic> nextTime;
+  final Map<String, dynamic>? nextTime;
   const PrayerTimeListWidget({
     super.key,
     required this.prayerTime,
-    required this.nextTime,
+    this.nextTime,
   });
 
   @override
@@ -42,12 +42,14 @@ class PrayerTimeListWidget extends StatelessWidget {
               PrayerTimeItemWidget(
                 name: prayerTime.toMap().keys.toList()[i],
                 time: prayerTime.toMap().values.toList()[i],
-                isActive: i ==
-                    prayerTime
-                        .toMap()
-                        .keys
-                        .toList()
-                        .indexOf(nextTime.keys.first),
+                isActive: nextTime != null
+                    ? i ==
+                        prayerTime
+                            .toMap()
+                            .keys
+                            .toList()
+                            .indexOf(nextTime!.keys.first)
+                    : false,
               ),
           ],
         )),

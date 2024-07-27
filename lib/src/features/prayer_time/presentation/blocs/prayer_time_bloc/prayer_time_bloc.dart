@@ -63,7 +63,8 @@ class PrayerTimeBloc extends Bloc<PrayerTimeEvent, PrayerTimeState> {
       int menit = int.parse(item.split(":")[1]);
 
       DateTime waktuSholat = DateTime(now.year, now.month, now.day, jam, menit);
-      if (waktuSholat.isAfter(now) && now.isBefore(waktuSholat)) {
+      log("${now.toString()} ${waktuSholat.toString()}");
+      if (now.isBefore(waktuSholat)) {
         result.add({key: item});
       }
     });

@@ -5,6 +5,7 @@ import 'package:ibadahku/src/core/theme/app_pallete.dart';
 import 'package:ibadahku/src/features/kiblah/presentation/pages/kiblah_screen.dart';
 import 'package:ibadahku/src/features/prayer_time/presentation/pages/prayer_time_screen.dart';
 import 'package:ibadahku/src/features/quran/presentation/pages/quran_screen.dart';
+import 'package:lazy_load_indexed_stack/lazy_load_indexed_stack.dart';
 
 class MainScreen extends StatefulWidget {
   final int? index;
@@ -33,8 +34,9 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: IndexedStack(
-        index: 1,
+      body: LazyLoadIndexedStack(
+        index: _selectedIndex!,
+        preloadIndexes: const [3],
         children: _widgetOptions,
       ),
       bottomNavigationBar: CurvedNavigationBar(

@@ -32,7 +32,6 @@ class _PrayerTimeScreenState extends State<PrayerTimeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    log('haha');
     return Scaffold(
       body: SizedBox.expand(
         child: BlocBuilder<PrayerTimeBloc, PrayerTimeState>(
@@ -90,20 +89,20 @@ class _PrayerTimeScreenState extends State<PrayerTimeScreen> {
                             dateTime: state.date,
                             city: state.city,
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 25,
                           ),
-                          PrayerTimeCountDownWidget(
-                            nextTime: state.nextTime,
-                            prayerTime: state.prayerTime!,
-                          ),
+                          // PrayerTimeCountDownWidget(
+                          //   nextTime: state.nextTime,
+                          //   prayerTime: state.prayerTime!,
+                          // ),
                         ],
                       ),
                     ),
                   ),
                   PrayerTimeListWidget(
                     prayerTime: state.prayerTime!,
-                    nextTime: state.nextTime!,
+                    nextTime: state.nextTime,
                   )
                 ],
               );
