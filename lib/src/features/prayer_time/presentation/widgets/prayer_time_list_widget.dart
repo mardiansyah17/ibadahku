@@ -38,10 +38,17 @@ class PrayerTimeListWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            PrayerTimeItemWidget(
-                name: "Imsak",
-                time: prayerTime.imsak,
-                isActive: nextTime.keys.first == "imsak"),
+            for (int i = 0; i < prayerTime.toMap().length; i++)
+              PrayerTimeItemWidget(
+                name: prayerTime.toMap().keys.toList()[i],
+                time: prayerTime.toMap().values.toList()[i],
+                isActive: i ==
+                    prayerTime
+                        .toMap()
+                        .keys
+                        .toList()
+                        .indexOf(nextTime.keys.first),
+              ),
           ],
         )),
       ),
