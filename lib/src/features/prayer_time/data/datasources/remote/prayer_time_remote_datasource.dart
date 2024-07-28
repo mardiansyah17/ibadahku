@@ -1,7 +1,7 @@
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
-import 'package:ibadahku/src/core/constants/base_url_prayer_time.dart';
+import 'package:ibadahku/src/core/constants/base_url.dart';
 import 'package:ibadahku/src/features/prayer_time/data/models/prayer_time_model.dart';
 
 abstract interface class PrayerTimeRemoteDatasource {
