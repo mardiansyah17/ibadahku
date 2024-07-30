@@ -5,7 +5,7 @@ import 'package:ibadahku/src/core/constants/base_url.dart';
 import 'package:ibadahku/src/features/quran/data/models/surah_model.dart';
 
 abstract interface class QuranRemoteDatasource {
-  Future<List<SurahModel>> getAllSurah(String surah, String ayat);
+  Future<List<SurahModel>> getAllSurah();
 }
 
 class QuranRemoteDatasourceImpl implements QuranRemoteDatasource {
@@ -14,7 +14,7 @@ class QuranRemoteDatasourceImpl implements QuranRemoteDatasource {
   QuranRemoteDatasourceImpl(this.dio);
 
   @override
-  Future<List<SurahModel>> getAllSurah(String surah, String ayat) async {
+  Future<List<SurahModel>> getAllSurah() async {
     try {
       final response = await dio.get("$baseUrlQuran/surat/semua");
 

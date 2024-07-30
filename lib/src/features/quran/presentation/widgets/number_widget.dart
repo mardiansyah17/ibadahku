@@ -8,7 +8,7 @@ class NumberWidget extends StatelessWidget {
     required this.nomor,
   });
 
-  final int nomor;
+  final String nomor;
 
   @override
   Widget build(BuildContext context) {

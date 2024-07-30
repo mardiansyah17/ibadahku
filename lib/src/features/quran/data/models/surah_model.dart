@@ -11,9 +11,9 @@ class SurahModel extends Surah {
   factory SurahModel.fromJson(Map<String, dynamic> json) {
     return SurahModel(
       number: json['number'],
-      name: json['name'],
+      name: json['name_id'],
       arabicName: json['name_short'],
-      numberOfVerses: json['numberOfVerses'],
+      numberOfVerses: json['number_of_verses'],
     );
   }
 }

@@ -10,6 +10,11 @@ import 'package:ibadahku/src/features/prayer_time/domain/usecases/get_cities.dar
 import 'package:ibadahku/src/features/prayer_time/domain/usecases/get_prayer_time.dart';
 import 'package:ibadahku/src/features/prayer_time/presentation/blocs/city_bloc/city_bloc.dart';
 import 'package:ibadahku/src/features/prayer_time/presentation/blocs/prayer_time_bloc/prayer_time_bloc.dart';
+import 'package:ibadahku/src/features/quran/data/datasources/quran_remote_datasource.dart';
+import 'package:ibadahku/src/features/quran/data/repositories/surah_repository_impl.dart';
+import 'package:ibadahku/src/features/quran/domain/repositories/surah_repository.dart';
+import 'package:ibadahku/src/features/quran/domain/usecases/get_all_surah.dart';
+import 'package:ibadahku/src/features/quran/presentation/blocs/surah_bloc/surah_bloc.dart';
 
 final sl = GetIt.instance;
 
@@ -17,6 +22,7 @@ Future initDepedencies() async {
   sl.registerLazySingleton(() => Dio());
   initPrayerTime();
   initCityBloc();
+  initSurahBloc();
 }
 
 void initPrayerTime() {
@@ -37,4 +43,14 @@ void initCityBloc() {
     ..registerFactory<CityRepository>(() => CityRepositoryImpl(sl()))
     ..registerFactory<GetCities>(() => GetCities(sl()))
     ..registerLazySingleton<CityBloc>(() => CityBloc(getCities: sl()));
+}
+
+void initSurahBloc() {
+  sl
+    ..registerFactory<QuranRemoteDatasource>(
+        () => QuranRemoteDatasourceImpl(sl()))
+    ..registerFactory<SurahRepository>(
+        () => SurahRepositoryImpl(quranRemoteDatasource: sl()))
+    ..registerFactory<GetAllSurah>(() => GetAllSurah(sl()))
+    ..registerLazySingleton<SurahBloc>(() => SurahBloc(getAllSurah: sl()));
 }

@@ -5,6 +5,7 @@ import 'package:ibadahku/src/core/theme/app_theme.dart';
 import 'package:ibadahku/src/core/widgets/main_screen.dart';
 import 'package:ibadahku/src/features/prayer_time/presentation/blocs/city_bloc/city_bloc.dart';
 import 'package:ibadahku/src/features/prayer_time/presentation/blocs/prayer_time_bloc/prayer_time_bloc.dart';
+import 'package:ibadahku/src/features/quran/presentation/blocs/surah_bloc/surah_bloc.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 
@@ -16,6 +17,7 @@ void main() async {
   runApp(MultiBlocProvider(providers: [
     BlocProvider(create: (_) => sl<PrayerTimeBloc>()),
     BlocProvider(create: (_) => sl<CityBloc>()),
+    BlocProvider(create: (_) => sl<SurahBloc>())
   ], child: const MainApp()));
 }
 

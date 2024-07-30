@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:ibadahku/src/core/theme/app_pallete.dart';
+import 'package:ibadahku/src/features/quran/domain/entities/surah.dart';
 import 'package:ibadahku/src/features/quran/presentation/widgets/number_widget.dart';
 
 class ItemSurahWidget extends StatelessWidget {
-  const ItemSurahWidget({super.key});
+  final Surah surah;
+  const ItemSurahWidget({super.key, required this.surah});
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +25,7 @@ class ItemSurahWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           NumberWidget(
-            nomor: 1,
+            nomor: surah.number,
           ),
           const SizedBox(
             width: 10,
@@ -33,14 +35,21 @@ class ItemSurahWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  "Al-Fatihah",
-                  style: const TextStyle(
-                    fontSize: 18,
-                  ),
+                Row(
+                  children: [
+                    Text(surah.name, style: const TextStyle(fontSize: 18)),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    Text(
+                      "(${surah.arabicName})",
+                      style: const TextStyle(
+                          fontSize: 18, color: AppPallete.primary),
+                    ),
+                  ],
                 ),
                 Text(
-                  "الفاتحة",
+                  surah.numberOfVerses.toString(),
                   style:
                       const TextStyle(fontSize: 18, color: AppPallete.primary),
                 ),
