@@ -12,5 +12,5 @@ final class GetSurah extends SurahEvent {}
 final class SearchSurah extends SurahEvent {
   final String name;
 
-  const SearchSurah(this.name);
+  const SearchSurah({required this.name});
 }

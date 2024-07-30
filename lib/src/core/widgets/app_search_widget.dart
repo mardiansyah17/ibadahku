@@ -1,12 +1,9 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ibadahku/src/core/theme/app_pallete.dart';
-import 'package:ibadahku/src/features/quran/presentation/blocs/surah_bloc/surah_bloc.dart';
 
 class AppSearchWidget extends StatelessWidget {
-  const AppSearchWidget({super.key});
+  final ValueChanged<String>? onChanged;
+  const AppSearchWidget({super.key, this.onChanged});
 
   static OutlineInputBorder outlineInputBorder(
           {Color color = AppPallete.second, double width = 1}) =>
@@ -18,9 +15,7 @@ class AppSearchWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextField(
-      onChanged: (value) {
-        context.read<SurahBloc>().add(SearchSurah(value));
-      },
+      onChanged: onChanged,
       style: const TextStyle(color: AppPallete.primary),
       decoration: InputDecoration(
         contentPadding: const EdgeInsets.all(10),

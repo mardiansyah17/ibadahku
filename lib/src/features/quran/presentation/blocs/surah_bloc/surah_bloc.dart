@@ -24,20 +24,19 @@ class SurahBloc extends Bloc<SurahEvent, SurahState> {
     SearchSurah event,
     Emitter<SurahState> emit,
   ) async {
-    final String name = event.name;
+    log('SearchSurah event received: ${event.name}');
     final currentState = state;
     if (currentState is SurahLoaded) {
-      return emit(SurahLoaded(surah: currentState.surah));
-      final surah = currentState.surah!
-          .where((element) =>
-              element.name.toLowerCase().contains(event.name.toLowerCase()))
-          .toList();
-      // if (name.isEmpty) {
-      //   log('kosong');
-      // } else {
-      //   log(surah.toString());
-      //   emit(SurahLoaded(surahFilterByName: surah));
-      // }
+      emit(SurahLoading());
+      final List<Surah> filteredSurah = event.name.isEmpty
+          ? currentState.surah!
+          : currentState.surah!
+              .where((element) =>
+                  element.name.toLowerCase().contains(event.name.toLowerCase()))
+              .toList();
+      log('Filtered Surah count: ${filteredSurah.length}');
+      emit(SurahLoaded(
+          surah: currentState.surah, surahFilterByName: filteredSurah));
     }
   }
 
