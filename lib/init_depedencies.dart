@@ -10,9 +10,9 @@ import 'package:ibadahku/src/features/prayer_time/domain/usecases/get_cities.dar
 import 'package:ibadahku/src/features/prayer_time/domain/usecases/get_prayer_time.dart';
 import 'package:ibadahku/src/features/prayer_time/presentation/blocs/city_bloc/city_bloc.dart';
 import 'package:ibadahku/src/features/prayer_time/presentation/blocs/prayer_time_bloc/prayer_time_bloc.dart';
-import 'package:ibadahku/src/features/quran/data/datasources/quran_remote_datasource.dart';
-import 'package:ibadahku/src/features/quran/data/repositories/surah_repository_impl.dart';
-import 'package:ibadahku/src/features/quran/domain/repositories/surah_repository.dart';
+import 'package:ibadahku/src/features/quran/data/datasources/al_quran_remote_datasource.dart';
+import 'package:ibadahku/src/features/quran/data/repositories/al_quran_repository_impl.dart';
+import 'package:ibadahku/src/features/quran/domain/repositories/al_quran_repository.dart';
 import 'package:ibadahku/src/features/quran/domain/usecases/get_all_surah.dart';
 import 'package:ibadahku/src/features/quran/presentation/blocs/surah_bloc/surah_bloc.dart';
 
@@ -47,10 +47,10 @@ void initCityBloc() {
 
 void initSurahBloc() {
   sl
-    ..registerFactory<QuranRemoteDatasource>(
-        () => QuranRemoteDatasourceImpl(sl()))
-    ..registerFactory<SurahRepository>(
-        () => SurahRepositoryImpl(quranRemoteDatasource: sl()))
+    ..registerFactory<AlQuranRemoteDatasource>(
+        () => AlQuranRemoteDatasourceImpl(sl()))
+    ..registerFactory<AlQuranRepository>(
+        () => AlQuranRepositoryImpl(alQuranRemoteDatasource: sl()))
     ..registerFactory<GetAllSurah>(() => GetAllSurah(sl()))
     ..registerLazySingleton<SurahBloc>(() => SurahBloc(getAllSurah: sl()));
 }

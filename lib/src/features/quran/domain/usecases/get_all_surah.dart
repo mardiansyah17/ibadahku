@@ -2,10 +2,10 @@ import 'package:dartz/dartz.dart';
 import 'package:ibadahku/src/core/errors/failures.dart';
 import 'package:ibadahku/src/core/usecase/usecase.dart';
 import 'package:ibadahku/src/features/quran/domain/entities/surah.dart';
-import 'package:ibadahku/src/features/quran/domain/repositories/surah_repository.dart';
+import 'package:ibadahku/src/features/quran/domain/repositories/al_quran_repository.dart';
 
 class GetAllSurah implements UseCase<List<Surah>, NoParams> {
-  final SurahRepository repository;
+  final AlQuranRepository repository;
 
   GetAllSurah(this.repository);
 

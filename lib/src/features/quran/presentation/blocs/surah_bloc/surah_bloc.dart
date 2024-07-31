@@ -13,7 +13,7 @@ class SurahBloc extends Bloc<SurahEvent, SurahState> {
   final GetAllSurah getAllSurah;
   SurahBloc({required this.getAllSurah}) : super(SurahInitial()) {
     on<SurahEvent>((event, emit) {
-      // emit(SurahLoading());
+      emit(SurahLoading());
     });
 
     on<GetSurah>(_onLoadSurah);

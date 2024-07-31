@@ -30,7 +30,7 @@ class MainApp extends StatelessWidget {
     return MaterialApp(
       theme: AppTheme.lightTheme,
       debugShowCheckedModeBanner: false,
-      home: const DetailSurahScreen(),
+      home: const MainScreen(),
     );
   }
 }
