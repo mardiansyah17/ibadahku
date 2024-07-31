@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:ibadahku/src/core/theme/app_pallete.dart';
+import 'package:ibadahku/src/features/quran/domain/entities/ayat.dart';
 import 'package:ibadahku/src/features/quran/presentation/widgets/action_ayat_widget.dart';
 import 'package:ibadahku/src/features/quran/presentation/widgets/number_widget.dart';
 
 class ItemAyatWidget extends StatelessWidget {
-  const ItemAyatWidget({super.key});
+  final Ayat ayat;
+  const ItemAyatWidget({super.key, required this.ayat});
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +26,7 @@ class ItemAyatWidget extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  NumberWidget(nomor: "1"),
+                  NumberWidget(nomor: ayat.id),
                   Row(
                     children: [
                       ActionAyatWidget(icon: Icons.play_arrow),
@@ -46,11 +48,13 @@ class ItemAyatWidget extends StatelessWidget {
                 Align(
                   alignment: Alignment.centerRight,
                   child: Text(
-                    "اَلۡحَمۡدُ لِلّٰهِ رَبِّ الۡعٰلَمِيۡنَۙ",
+                    ayat.arab,
+                    textAlign: TextAlign.right,
                     style: TextStyle(
                       fontSize: 22,
                       fontWeight: FontWeight.bold,
                       color: AppPallete.primary,
+                      height: 2,
                     ),
                   ),
                 ),
@@ -60,7 +64,7 @@ class ItemAyatWidget extends StatelessWidget {
                 Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    "Al-ḥamdu lillāhi rabbil-‘ālamīn(a).",
+                    ayat.latin,
                     style: TextStyle(
                       fontSize: 18,
                       color: AppPallete.primary,
@@ -71,7 +75,7 @@ class ItemAyatWidget extends StatelessWidget {
                 Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    "Pujian bagi Allah, Tuhan semesta alam.",
+                    ayat.terjemahan,
                     style: TextStyle(fontSize: 18),
                   ),
                 ),

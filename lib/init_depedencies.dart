@@ -13,7 +13,9 @@ import 'package:ibadahku/src/features/prayer_time/presentation/blocs/prayer_time
 import 'package:ibadahku/src/features/quran/data/datasources/al_quran_remote_datasource.dart';
 import 'package:ibadahku/src/features/quran/data/repositories/al_quran_repository_impl.dart';
 import 'package:ibadahku/src/features/quran/domain/repositories/al_quran_repository.dart';
+import 'package:ibadahku/src/features/quran/domain/usecases/get_all_ayat_by_surah.dart';
 import 'package:ibadahku/src/features/quran/domain/usecases/get_all_surah.dart';
+import 'package:ibadahku/src/features/quran/presentation/blocs/ayat_bloc/ayat_bloc.dart';
 import 'package:ibadahku/src/features/quran/presentation/blocs/surah_bloc/surah_bloc.dart';
 
 final sl = GetIt.instance;
@@ -52,5 +54,7 @@ void initSurahBloc() {
     ..registerFactory<AlQuranRepository>(
         () => AlQuranRepositoryImpl(alQuranRemoteDatasource: sl()))
     ..registerFactory<GetAllSurah>(() => GetAllSurah(sl()))
-    ..registerLazySingleton<SurahBloc>(() => SurahBloc(getAllSurah: sl()));
+    ..registerLazySingleton<SurahBloc>(() => SurahBloc(getAllSurah: sl()))
+    ..registerFactory<GetAllAyatBySurah>(() => GetAllAyatBySurah(sl()))
+    ..registerLazySingleton<AyatBloc>(() => AyatBloc(getAllAyatBySurah: sl()));
 }

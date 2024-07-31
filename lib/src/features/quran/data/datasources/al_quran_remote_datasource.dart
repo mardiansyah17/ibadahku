@@ -35,7 +35,8 @@ class AlQuranRemoteDatasourceImpl implements AlQuranRemoteDatasource {
   @override
   Future<List<AyatModel>> getAyatBySurah(String id) async {
     try {
-      final response = await dio.get("$baseUrlQuran/ayat/$id");
+      final response = await dio.get("$baseUrlQuran/ayat/page/$id");
+      // log(response.data['data'].toString());
       return (response.data['data'] as List)
           .map((e) => AyatModel.fromJson(e))
           .toList();
