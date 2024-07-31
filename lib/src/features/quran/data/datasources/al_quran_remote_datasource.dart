@@ -7,7 +7,7 @@ import 'package:ibadahku/src/features/quran/data/models/surah_model.dart';
 
 abstract interface class AlQuranRemoteDatasource {
   Future<List<SurahModel>> getAllSurah();
-  Future<List<AyatModel>> getAyatBySurah(String id);
+  Future<List<AyatModel>> getAyatBySurah(String surat, {int? lastAyat});
 }
 
 class AlQuranRemoteDatasourceImpl implements AlQuranRemoteDatasource {
@@ -33,9 +33,9 @@ class AlQuranRemoteDatasourceImpl implements AlQuranRemoteDatasource {
   }
 
   @override
-  Future<List<AyatModel>> getAyatBySurah(String id) async {
+  Future<List<AyatModel>> getAyatBySurah(String surat, {int? lastAyat}) async {
     try {
-      final response = await dio.get("$baseUrlQuran/ayat/page/$id");
+      final response = await dio.get("$baseUrlQuran/ayat/$surat/$lastAyat/10");
       // log(response.data['data'].toString());
       return (response.data['data'] as List)
           .map((e) => AyatModel.fromJson(e))

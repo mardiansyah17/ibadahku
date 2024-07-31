@@ -6,5 +6,6 @@ import 'package:ibadahku/src/features/quran/domain/entities/surah.dart';
 abstract interface class AlQuranRepository {
   Future<Either<Failure, List<Surah>>> getAllSurah();
 
-  Future<Either<Failure, List<Ayat>>> getAyatBySurah(String id);
+  Future<Either<Failure, List<Ayat>>> getAyatBySurah(String surat,
+      {int lastAyat});
 }

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ibadahku/src/core/theme/app_pallete.dart';
@@ -15,10 +17,12 @@ class DetailSurahScreen extends StatefulWidget {
 }
 
 class _DetailSurahScreenState extends State<DetailSurahScreen> {
+  final ScrollController _scrollController = ScrollController();
   @override
   void initState() {
     super.initState();
     context.read<AyatBloc>().add(GetAyatBySurah(id: widget.id));
+    _scrollController.addListener(_onScroll);
   }
 
   @override
@@ -33,7 +37,7 @@ class _DetailSurahScreenState extends State<DetailSurahScreen> {
             if (state is AyatLoading) {
               return const AppLoading();
             }
-            ;
+
             if (state is AyatLoaded) {
               return Padding(
                 padding: const EdgeInsets.all(10.0),
@@ -54,6 +58,7 @@ class _DetailSurahScreenState extends State<DetailSurahScreen> {
                     // ),
                     Expanded(
                       child: ListView.builder(
+                        controller: _scrollController,
                         itemCount: state.ayat.length,
                         itemBuilder: (context, index) {
                           return ItemAyatWidget(
@@ -69,5 +74,24 @@ class _DetailSurahScreenState extends State<DetailSurahScreen> {
             return const SizedBox.shrink();
           },
         ));
+  }
+
+  void _onScroll() {
+    if (_isBottom) {
+      log('scroll');
+    }
+  }
+
+  bool get _isBottom {
+    if (!_scrollController.hasClients) return false;
+    final maxScroll = _scrollController.position.maxScrollExtent;
+    final currentScroll = _scrollController.position.pixels;
+    return currentScroll >= (maxScroll * 0.9);
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
   }
 }

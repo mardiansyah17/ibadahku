@@ -22,9 +22,11 @@ class AlQuranRepositoryImpl implements AlQuranRepository {
   }
 
   @override
-  Future<Either<Failure, List<Ayat>>> getAyatBySurah(String id) async {
+  Future<Either<Failure, List<Ayat>>> getAyatBySurah(String id,
+      {int? lastAyat}) async {
     try {
-      final result = await alQuranRemoteDatasource.getAyatBySurah(id);
+      final result =
+          await alQuranRemoteDatasource.getAyatBySurah(id, lastAyat: lastAyat);
       return Right(result);
     } on DioException catch (e) {
       return Left(ServerFailure(e.message.toString()));

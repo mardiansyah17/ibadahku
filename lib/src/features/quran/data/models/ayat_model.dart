@@ -13,7 +13,7 @@ class AyatModel extends Ayat {
     return AyatModel(
       arab: json['arab'],
       audio: json['audio'],
-      id: json['id'],
+      id: json['ayah'],
       latin: json['latin'],
       terjemahan: json['text'],
     );
