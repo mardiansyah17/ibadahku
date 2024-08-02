@@ -5,6 +5,7 @@ import 'package:equatable/equatable.dart';
 import 'package:ibadahku/src/core/usecase/usecase.dart';
 import 'package:ibadahku/src/features/quran/domain/entities/surah.dart';
 import 'package:ibadahku/src/features/quran/domain/usecases/get_all_surah.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 part 'surah_event.dart';
 part 'surah_state.dart';
@@ -44,6 +45,9 @@ class SurahBloc extends Bloc<SurahEvent, SurahState> {
     GetSurah event,
     Emitter<SurahState> emit,
   ) async {
+    final bool checkInternetConnection =
+        await InternetConnectionChecker().hasConnection;
+    print(checkInternetConnection.toString());
     final surah = await getAllSurah(NoParams());
     surah.fold((l) {
       print("ada error ${l.errorMessage}");

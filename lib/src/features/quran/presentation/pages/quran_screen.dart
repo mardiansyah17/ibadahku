@@ -42,14 +42,12 @@ class _QuranScreenState extends State<QuranScreen> {
         ),
         body: BlocBuilder<SurahBloc, SurahState>(
           builder: (context, state) {
-            log("State changed");
             if (state is SurahLoading) {
               return const Center(
                 child: AppLoading(),
               );
             }
             if (state is SurahLoaded) {
-              log(state.toString());
               return Column(
                 children: [
                   Expanded(

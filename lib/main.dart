@@ -32,7 +32,7 @@ class MainApp extends StatelessWidget {
     return MaterialApp(
       theme: AppTheme.lightTheme,
       debugShowCheckedModeBanner: false,
-      home: const DetailSurahScreen(id: "2", name: 'Al-Baqarah'),
+      home: const MainScreen(),
     );
   }
 }

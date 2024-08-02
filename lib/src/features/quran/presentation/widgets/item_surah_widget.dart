@@ -20,7 +20,7 @@ class ItemSurahWidget extends StatelessWidget {
             PageTransition(
                 type: PageTransitionType.rightToLeft,
                 child: DetailSurahScreen(
-                  id: surah.number,
+                  surat: surah.number,
                   name: surah.name,
                 )));
       },
