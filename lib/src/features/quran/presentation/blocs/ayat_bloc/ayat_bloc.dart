@@ -11,9 +11,7 @@ part 'ayat_state.dart';
 class AyatBloc extends Bloc<AyatEvent, AyatState> {
   final GetListAyatBySurah getAllAyatBySurah;
   AyatBloc({required this.getAllAyatBySurah}) : super(AyatInitial()) {
-    on<AyatEvent>((event, emit) {
-      log(state.toString());
-    });
+    on<AyatEvent>((event, emit) {});
     on<ResetAyat>((event, emit) {
       emit(AyatInitial());
     });
@@ -27,7 +25,9 @@ class AyatBloc extends Bloc<AyatEvent, AyatState> {
             surat: event.surat, lastAyat: event.lastAyat! + 1));
         await Future.delayed(const Duration(seconds: 10));
         response.fold((l) => log(l.errorMessage), (r) {
-          emit(AyatLoaded(ayat: r));
+          emit(AyatLoaded(
+            ayat: r,
+          ));
         });
         return;
       }

@@ -10,7 +10,12 @@ import 'package:ibadahku/src/features/quran/presentation/widgets/item_ayat_widge
 class DetailSurahScreen extends StatefulWidget {
   final String surat;
   final String name;
-  const DetailSurahScreen({super.key, required this.surat, required this.name});
+  final int maxAyat;
+  const DetailSurahScreen(
+      {super.key,
+      required this.surat,
+      required this.name,
+      required this.maxAyat});
 
   @override
   State<DetailSurahScreen> createState() => _DetailSurahScreenState();
@@ -73,7 +78,7 @@ class _DetailSurahScreenState extends State<DetailSurahScreen> {
   }
 
   void _onScroll() {
-    if (_isBottom) {
+    if (_isBottom && ayat.length < widget.maxAyat) {
       context.read<AyatBloc>().add(GetAyatBySurah(
             surat: widget.surat,
             lastAyat: int.parse(ayat.last.id),

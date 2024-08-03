@@ -4,6 +4,8 @@ class Ayat {
   final String id;
   final String latin;
   final String terjemahan;
+  final String? noteNumber;
+  final String? noteText;
 
   Ayat({
     required this.arab,
@@ -11,5 +13,7 @@ class Ayat {
     required this.id,
     required this.latin,
     required this.terjemahan,
+    this.noteNumber,
+    this.noteText,
   });
 }

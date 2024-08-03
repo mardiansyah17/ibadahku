@@ -22,6 +22,7 @@ class ItemSurahWidget extends StatelessWidget {
                 child: DetailSurahScreen(
                   surat: surah.number,
                   name: surah.name,
+                  maxAyat: int.parse(surah.numberOfVerses),
                 )));
       },
       child: Ink(
