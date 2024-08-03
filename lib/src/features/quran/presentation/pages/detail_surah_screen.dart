@@ -31,39 +31,45 @@ class _DetailSurahScreenState extends State<DetailSurahScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: Text(widget.name),
-          surfaceTintColor: Colors.transparent,
-        ),
-        body: BlocConsumer<AyatBloc, AyatState>(
-          listener: (context, state) {
-            if (state is AyatLoaded) {
-              setState(() {
-                ayat = [...ayat, ...state.ayat];
-              });
-            }
-          },
-          builder: (context, state) {
-            if (state is AyatLoading) {
-              return const AppLoading();
-            }
+    return PopScope(
+      onPopInvoked: (didPop) {
+        log('mantap');
+        context.read<AyatBloc>().add(ResetAyat());
+      },
+      child: Scaffold(
+          appBar: AppBar(
+            title: Text(widget.name),
+            surfaceTintColor: Colors.transparent,
+          ),
+          body: BlocConsumer<AyatBloc, AyatState>(
+            listener: (context, state) {
+              if (state is AyatLoaded) {
+                setState(() {
+                  ayat = [...ayat, ...state.ayat];
+                });
+              }
+            },
+            builder: (context, state) {
+              if (state is AyatLoading) {
+                return const AppLoading();
+              }
 
-            return ListView.builder(
-              controller: _scrollController,
-              itemCount: ayat.length,
-              itemBuilder: (context, index) {
-                if (state is AyatLoadingPagination &&
-                    index == ayat.length - 1) {
-                  return const AppLoading();
-                }
-                return ItemAyatWidget(
-                  ayat: ayat[index],
-                );
-              },
-            );
-          },
-        ));
+              return ListView.builder(
+                controller: _scrollController,
+                itemCount: ayat.length,
+                itemBuilder: (context, index) {
+                  if (state is AyatLoadingPagination &&
+                      index == ayat.length - 1) {
+                    return const AppLoading();
+                  }
+                  return ItemAyatWidget(
+                    ayat: ayat[index],
+                  );
+                },
+              );
+            },
+          )),
+    );
   }
 
   void _onScroll() {

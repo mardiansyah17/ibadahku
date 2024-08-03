@@ -7,6 +7,8 @@ sealed class AyatEvent extends Equatable {
   List<Object> get props => [];
 }
 
+final class ResetAyat extends AyatEvent {}
+
 final class GetAyatBySurah extends AyatEvent {
   final String surat;
   final int? lastAyat;

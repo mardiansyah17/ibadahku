@@ -5,7 +5,6 @@ import 'package:equatable/equatable.dart';
 import 'package:ibadahku/src/core/usecase/usecase.dart';
 import 'package:ibadahku/src/features/quran/domain/entities/surah.dart';
 import 'package:ibadahku/src/features/quran/domain/usecases/get_all_surah.dart';
-import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 part 'surah_event.dart';
 part 'surah_state.dart';
@@ -14,7 +13,7 @@ class SurahBloc extends Bloc<SurahEvent, SurahState> {
   final GetAllSurah getAllSurah;
   SurahBloc({required this.getAllSurah}) : super(SurahInitial()) {
     on<SurahEvent>((event, emit) {
-      emit(SurahLoading());
+      // emit(SurahLoading());
     });
 
     on<GetSurah>(_onLoadSurah);
@@ -25,10 +24,10 @@ class SurahBloc extends Bloc<SurahEvent, SurahState> {
     SearchSurah event,
     Emitter<SurahState> emit,
   ) async {
-    log('SearchSurah event received: ${event.name}');
     final currentState = state;
     if (currentState is SurahLoaded) {
       emit(SurahLoading());
+      log('mantap');
       final List<Surah> filteredSurah = event.name.isEmpty
           ? currentState.surah!
           : currentState.surah!
@@ -45,9 +44,7 @@ class SurahBloc extends Bloc<SurahEvent, SurahState> {
     GetSurah event,
     Emitter<SurahState> emit,
   ) async {
-    final bool checkInternetConnection =
-        await InternetConnectionChecker().hasConnection;
-    print(checkInternetConnection.toString());
+    emit(SurahLoading());
     final surah = await getAllSurah(NoParams());
     surah.fold((l) {
       print("ada error ${l.errorMessage}");

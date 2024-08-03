@@ -1,8 +1,5 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:ibadahku/src/core/theme/app_pallete.dart';
 import 'package:ibadahku/src/core/widgets/app_loading.dart';
 import 'package:ibadahku/src/core/widgets/app_search_widget.dart';
 import 'package:ibadahku/src/features/quran/presentation/blocs/surah_bloc/surah_bloc.dart';

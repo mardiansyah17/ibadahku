@@ -13,7 +13,9 @@ class AyatBloc extends Bloc<AyatEvent, AyatState> {
   AyatBloc({required this.getAllAyatBySurah}) : super(AyatInitial()) {
     on<AyatEvent>((event, emit) {
       log(state.toString());
-      // emit(AyatLoading());
+    });
+    on<ResetAyat>((event, emit) {
+      emit(AyatInitial());
     });
     on<GetAyatBySurah>((event, emit) async {
       final currentState = state;
@@ -23,7 +25,7 @@ class AyatBloc extends Bloc<AyatEvent, AyatState> {
 
         final response = await getAllAyatBySurah(ParamGetAyatBySurah(
             surat: event.surat, lastAyat: event.lastAyat! + 1));
-
+        await Future.delayed(const Duration(seconds: 10));
         response.fold((l) => log(l.errorMessage), (r) {
           emit(AyatLoaded(ayat: r));
         });
