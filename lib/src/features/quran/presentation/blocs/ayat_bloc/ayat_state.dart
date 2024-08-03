@@ -13,9 +13,9 @@ final class AyatLoading extends AyatState {}
 
 final class AyatLoaded extends AyatState {
   final List<Ayat> ayat;
+  final bool loading;
 
-  const AyatLoaded({required this.ayat});
-
-  @override
-  List<Object> get props => [ayat];
+  const AyatLoaded({required this.ayat, this.loading = false});
 }
+
+final class AyatLoadingPagination extends AyatState {}

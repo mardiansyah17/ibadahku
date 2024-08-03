@@ -13,7 +13,7 @@ class SurahBloc extends Bloc<SurahEvent, SurahState> {
   final GetAllSurah getAllSurah;
   SurahBloc({required this.getAllSurah}) : super(SurahInitial()) {
     on<SurahEvent>((event, emit) {
-      emit(SurahLoading());
+      // emit(SurahLoading());
     });
 
     on<GetSurah>(_onLoadSurah);
@@ -24,10 +24,10 @@ class SurahBloc extends Bloc<SurahEvent, SurahState> {
     SearchSurah event,
     Emitter<SurahState> emit,
   ) async {
-    log('SearchSurah event received: ${event.name}');
     final currentState = state;
     if (currentState is SurahLoaded) {
       emit(SurahLoading());
+      log('mantap');
       final List<Surah> filteredSurah = event.name.isEmpty
           ? currentState.surah!
           : currentState.surah!
@@ -44,6 +44,7 @@ class SurahBloc extends Bloc<SurahEvent, SurahState> {
     GetSurah event,
     Emitter<SurahState> emit,
   ) async {
+    emit(SurahLoading());
     final surah = await getAllSurah(NoParams());
     surah.fold((l) {
       print("ada error ${l.errorMessage}");

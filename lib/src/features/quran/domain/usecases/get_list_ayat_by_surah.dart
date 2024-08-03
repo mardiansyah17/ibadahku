@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dartz/dartz.dart';
 import 'package:ibadahku/src/core/errors/failures.dart';
 import 'package:ibadahku/src/core/usecase/usecase.dart';
@@ -20,5 +22,5 @@ class ParamGetAyatBySurah {
   final String surat;
   final int lastAyat;
 
-  ParamGetAyatBySurah({required this.surat, this.lastAyat = 1});
+  ParamGetAyatBySurah({required this.surat, required this.lastAyat});
 }

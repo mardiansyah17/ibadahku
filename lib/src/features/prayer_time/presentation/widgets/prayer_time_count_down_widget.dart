@@ -28,7 +28,7 @@ class _PrayerTimeCountDownWidgetState extends State<PrayerTimeCountDownWidget> {
     DateTime waktuSholat =
         DateFormat("EEEE, dd/MM/yyyy").parse(widget.prayerTime.tanggal);
 
-    if (waktuSholat.isToday) {
+    if (waktuSholat.isToday && widget.nextTime != null) {
       counter();
     }
     super.initState();

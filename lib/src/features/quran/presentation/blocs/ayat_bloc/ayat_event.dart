@@ -7,11 +7,11 @@ sealed class AyatEvent extends Equatable {
   List<Object> get props => [];
 }
 
+final class ResetAyat extends AyatEvent {}
+
 final class GetAyatBySurah extends AyatEvent {
-  final String id;
+  final String surat;
+  final int? lastAyat;
 
-  const GetAyatBySurah({required this.id});
-
-  @override
-  List<Object> get props => [id];
+  const GetAyatBySurah({required this.surat, this.lastAyat});
 }
