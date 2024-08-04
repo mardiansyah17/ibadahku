@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ibadahku/src/core/widgets/app_loading.dart';
 import 'package:ibadahku/src/features/quran/domain/entities/ayat.dart';
 import 'package:ibadahku/src/features/quran/presentation/blocs/ayat_bloc/ayat_bloc.dart';
+import 'package:ibadahku/src/features/quran/presentation/blocs/play_sound_bloc/play_sound_bloc.dart';
 import 'package:ibadahku/src/features/quran/presentation/widgets/item_ayat_widget.dart';
 import 'package:just_audio/just_audio.dart';
 
@@ -44,44 +45,47 @@ class _DetailSurahScreenState extends State<DetailSurahScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return PopScope(
-      onPopInvoked: (didPop) {
-        log('mantap');
-        context.read<AyatBloc>().add(ResetAyat());
-      },
-      child: Scaffold(
-          appBar: AppBar(
-            title: Text(widget.name),
-            surfaceTintColor: Colors.transparent,
-          ),
-          body: BlocConsumer<AyatBloc, AyatState>(
-            listener: (context, state) {
-              if (state is AyatLoaded) {
-                setState(() {
-                  ayat = [...ayat, ...state.ayat];
-                });
-              }
-            },
-            builder: (context, state) {
-              if (state is AyatLoading) {
-                return const AppLoading();
-              }
+    return BlocProvider(
+      create: (context) => PlaySoundBloc(),
+      child: PopScope(
+        onPopInvoked: (didPop) {
+          log('mantap');
+          context.read<AyatBloc>().add(ResetAyat());
+        },
+        child: Scaffold(
+            appBar: AppBar(
+              title: Text(widget.name),
+              surfaceTintColor: Colors.transparent,
+            ),
+            body: BlocConsumer<AyatBloc, AyatState>(
+              listener: (context, state) {
+                if (state is AyatLoaded) {
+                  setState(() {
+                    ayat = [...ayat, ...state.ayat];
+                  });
+                }
+              },
+              builder: (context, state) {
+                if (state is AyatLoading) {
+                  return const AppLoading();
+                }
 
-              return ListView.builder(
-                controller: _scrollController,
-                itemCount: ayat.length,
-                itemBuilder: (context, index) {
-                  if (state is AyatLoadingPagination &&
-                      index == ayat.length - 1) {
-                    return const AppLoading();
-                  }
-                  return ItemAyatWidget(
-                    ayat: ayat[index],
-                  );
-                },
-              );
-            },
-          )),
+                return ListView.builder(
+                  controller: _scrollController,
+                  itemCount: ayat.length,
+                  itemBuilder: (context, index) {
+                    if (state is AyatLoadingPagination &&
+                        index == ayat.length - 1) {
+                      return const AppLoading();
+                    }
+                    return ItemAyatWidget(
+                      ayat: ayat[index],
+                    );
+                  },
+                );
+              },
+            )),
+      ),
     );
   }
 

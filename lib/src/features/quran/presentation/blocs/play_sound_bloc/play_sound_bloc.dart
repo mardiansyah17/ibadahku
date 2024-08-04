@@ -15,30 +15,23 @@ class PlaySoundBloc extends Bloc<PlaySoundEvent, PlaySoundState> {
     });
     on<StopAyat>(
       (event, emit) {
-        log('stop');
         player.stop();
         emit(PlaySoundInitial());
       },
     );
     on<PlayAyat>((event, emit) async {
-      emit(PlaySoundLoading());
-
+      emit(PlaySoundLoading(id: event.id));
       if (player.playing) {
-        log('lagi play');
         player.stop();
-        add(StopAyat());
-      } else {
-        await player.setUrl(event.url);
-        player.play();
-        player.playerStateStream.listen((event) {
-          log(event.processingState.toString());
-          if (event.processingState == ProcessingState.completed) {
-            log('triger stoped');
-            add(StopAyat());
-          }
-        });
-        emit(PlayingAyat(id: event.id));
       }
+      await player.setUrl(event.url);
+      player.play();
+      player.playerStateStream.listen((event) {
+        if (event.processingState == ProcessingState.completed) {
+          add(StopAyat());
+        }
+      });
+      emit(PlayingAyat(id: event.id));
     });
   }
 }

@@ -9,7 +9,11 @@ sealed class PlaySoundState extends Equatable {
 
 final class PlaySoundInitial extends PlaySoundState {}
 
-final class PlaySoundLoading extends PlaySoundState {}
+final class PlaySoundLoading extends PlaySoundState {
+  final String id;
+
+  const PlaySoundLoading({required this.id});
+}
 
 final class PlayingAyat extends PlaySoundState {
   final String id;
