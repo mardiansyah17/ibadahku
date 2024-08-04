@@ -13,6 +13,7 @@ class QuranScreen extends StatefulWidget {
 }
 
 class _QuranScreenState extends State<QuranScreen> {
+  final FocusNode focusNode = FocusNode();
   @override
   void initState() {
     super.initState();
@@ -24,13 +25,14 @@ class _QuranScreenState extends State<QuranScreen> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        FocusScope.of(context).unfocus();
+        focusNode.unfocus();
       },
       child: Scaffold(
         extendBodyBehindAppBar: true,
         appBar: AppBar(
           surfaceTintColor: Colors.transparent,
           title: AppSearchWidget(
+            focusNode: focusNode,
             onChanged: (query) {
               context.read<SurahBloc>().add(SearchSurah(name: query));
             },

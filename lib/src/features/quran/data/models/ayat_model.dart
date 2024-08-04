@@ -13,6 +13,8 @@ class AyatModel extends Ayat {
   });
 
   factory AyatModel.fromJson(Map<String, dynamic> json) {
+    final number =
+        RegExp(r'^\d+').firstMatch(json['notes'].toString())?.group(0);
     return AyatModel(
       id: json['id'],
       number: json['ayah'],
@@ -20,10 +22,13 @@ class AyatModel extends Ayat {
       audio: json['audio'],
       latin: json['latin'],
       terjemahan: json['text'],
-      noteNumber: json['notes']?.toString().substring(0, 2),
-      noteText: json['notes']
-          ?.toString()
-          .substring(3, json['notes'].toString().length),
+      noteNumber: json['notes'] != null ? number : null, // Remove this line
+      noteText: json['notes'],
     );
+  }
+  String getNumber(String text) {
+    final regex = RegExp(r'^\d+');
+    final match = regex.firstMatch(text);
+    return match!.group(0)!;
   }
 }

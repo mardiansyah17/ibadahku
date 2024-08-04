@@ -1,4 +1,9 @@
+import 'dart:developer';
+import 'dart:ui';
+
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:ibadahku/src/core/theme/app_pallete.dart';
 
 class TranslateWidget extends StatelessWidget {
@@ -12,36 +17,41 @@ class TranslateWidget extends StatelessWidget {
     this.noteNumber,
     this.noteText,
   });
+  static const styleText = TextStyle(
+    color: Colors.black,
+    height: 1.2,
+    fontSize: 16,
+  );
 
   @override
   Widget build(BuildContext context) {
     if (noteNumber == null && noteText == null) {
-      return RichText(
-        text: TextSpan(
-          children: [
-            TextSpan(
-              text: translate,
-              style: const TextStyle(
-                fontSize: 17,
-                color: Colors.black,
+      return Align(
+        alignment: Alignment.centerLeft,
+        child: RichText(
+          text: TextSpan(
+            children: [
+              TextSpan(
+                text: translate,
+                style: styleText,
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       );
     }
-    List<Widget> spans = [];
+    log(noteText.toString()[0]);
+    List<InlineSpan> spans = [];
     int start = 0;
     int index = translate.indexOf(noteNumber!);
-
     while (index != -1) {
       if (index > start) {
-        spans.add(Text(
-          translate.substring(start, index),
-          style: const TextStyle(color: Colors.black),
+        spans.add(TextSpan(
+          text: translate.substring(start, index),
         ));
       }
-      spans.add(Tooltip(
+      spans.add(WidgetSpan(
+          child: Tooltip(
         enableTapToDismiss: true,
         showDuration: const Duration(minutes: 2),
         triggerMode: TooltipTriggerMode.tap,
@@ -63,25 +73,26 @@ class TranslateWidget extends StatelessWidget {
         textStyle: const TextStyle(color: AppPallete.primary),
         message: noteText!,
         child: Text(
-          " $noteNumber",
-          style: const TextStyle(color: AppPallete.primary),
+          " $noteNumber)",
+          style: const TextStyle(
+            color: AppPallete.primary,
+            fontSize: 15,
+          ),
         ),
-      ));
+      )));
       start = index + noteNumber!.length;
       index = translate.indexOf(noteNumber!, start);
     }
 
     if (start < translate.length) {
-      spans.add(Text(
-        translate.substring(start),
-        style: const TextStyle(color: Colors.black),
+      spans.add(TextSpan(
+        text: translate.substring(start + 1),
       ));
     }
-    return Container(
-      margin: const EdgeInsets.only(top: 5),
+    return Align(
       alignment: Alignment.centerLeft,
-      child: Row(
-        children: spans,
+      child: Text.rich(
+        TextSpan(children: spans, style: styleText),
       ),
     );
   }

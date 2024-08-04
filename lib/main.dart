@@ -7,7 +7,6 @@ import 'package:ibadahku/src/features/prayer_time/presentation/blocs/city_bloc/c
 import 'package:ibadahku/src/features/prayer_time/presentation/blocs/prayer_time_bloc/prayer_time_bloc.dart';
 import 'package:ibadahku/src/features/quran/presentation/blocs/ayat_bloc/ayat_bloc.dart';
 import 'package:ibadahku/src/features/quran/presentation/blocs/surah_bloc/surah_bloc.dart';
-import 'package:ibadahku/src/features/quran/presentation/pages/detail_surah_screen.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 
@@ -30,13 +29,8 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: AppTheme.lightTheme,
-      debugShowCheckedModeBanner: false,
-      home: const DetailSurahScreen(
-        surat: "1",
-        name: "Al Fatihah",
-        maxAyat: 7,
-      ),
-    );
+        theme: AppTheme.lightTheme,
+        debugShowCheckedModeBanner: false,
+        home: const MainScreen());
   }
 }

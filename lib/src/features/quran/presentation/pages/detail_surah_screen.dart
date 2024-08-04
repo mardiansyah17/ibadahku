@@ -49,7 +49,6 @@ class _DetailSurahScreenState extends State<DetailSurahScreen> {
       create: (context) => PlaySoundBloc(),
       child: PopScope(
         onPopInvoked: (didPop) {
-          log('mantap');
           context.read<AyatBloc>().add(ResetAyat());
         },
         child: Scaffold(
@@ -108,7 +107,6 @@ class _DetailSurahScreenState extends State<DetailSurahScreen> {
   @override
   void dispose() {
     _scrollController.dispose();
-
     super.dispose();
   }
 }

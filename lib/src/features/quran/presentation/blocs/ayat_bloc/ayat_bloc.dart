@@ -23,7 +23,7 @@ class AyatBloc extends Bloc<AyatEvent, AyatState> {
 
         final response = await getAllAyatBySurah(ParamGetAyatBySurah(
             surat: event.surat, lastAyat: event.lastAyat! + 1));
-        await Future.delayed(const Duration(seconds: 10));
+
         response.fold((l) => log(l.errorMessage), (r) {
           emit(AyatLoaded(
             ayat: r,
