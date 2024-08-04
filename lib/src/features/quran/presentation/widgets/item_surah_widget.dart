@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:ibadahku/src/core/theme/app_pallete.dart';
 import 'package:ibadahku/src/features/quran/domain/entities/surah.dart';

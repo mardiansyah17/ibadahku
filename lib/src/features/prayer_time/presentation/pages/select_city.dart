@@ -38,7 +38,7 @@ class _SelectCityState extends State<SelectCity> {
         body: BlocBuilder<CityBloc, CityState>(
           builder: (context, state) {
             if (state is CityLoading) {
-              return Center(
+              return const Center(
                 child: CircularProgressIndicator(),
               );
             } else if (state is CityLoaded) {
@@ -68,7 +68,7 @@ class _SelectCityState extends State<SelectCity> {
                 },
               );
             } else {
-              return Center(
+              return const Center(
                 child: Text("Error"),
               );
             }
@@ -88,20 +88,20 @@ class AddressInputWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextField(
       controller: controller,
-      style: TextStyle(
+      style: const TextStyle(
         color: Colors.black,
         decorationThickness: 0,
       ),
       decoration: InputDecoration(
         enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: AppPallete.primary),
+          borderSide: const BorderSide(color: AppPallete.primary),
           borderRadius: BorderRadius.circular(10),
         ),
         hintText: "Cari Kota",
-        prefixIcon: Icon(Icons.search),
+        prefixIcon: const Icon(Icons.search),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
-          borderSide: BorderSide(
+          borderSide: const BorderSide(
             color: AppPallete.primary,
             width: 2,
           ),

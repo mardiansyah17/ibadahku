@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:ibadahku/src/features/prayer_time/domain/entities/city.dart';
 
 class CityModel extends City {

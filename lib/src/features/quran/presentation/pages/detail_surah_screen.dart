@@ -6,6 +6,7 @@ import 'package:ibadahku/src/core/widgets/app_loading.dart';
 import 'package:ibadahku/src/features/quran/domain/entities/ayat.dart';
 import 'package:ibadahku/src/features/quran/presentation/blocs/ayat_bloc/ayat_bloc.dart';
 import 'package:ibadahku/src/features/quran/presentation/widgets/item_ayat_widget.dart';
+import 'package:just_audio/just_audio.dart';
 
 class DetailSurahScreen extends StatefulWidget {
   final String surat;
@@ -23,7 +24,14 @@ class DetailSurahScreen extends StatefulWidget {
 
 class _DetailSurahScreenState extends State<DetailSurahScreen> {
   final ScrollController _scrollController = ScrollController();
+  final AudioPlayer _player = AudioPlayer();
   List<Ayat> ayat = [];
+
+  void playAudio(String url) async {
+    await _player.setUrl(url);
+    _player.play();
+  }
+
   @override
   void initState() {
     super.initState();
@@ -69,6 +77,7 @@ class _DetailSurahScreenState extends State<DetailSurahScreen> {
                   }
                   return ItemAyatWidget(
                     ayat: ayat[index],
+                    onTap: () => playAudio(ayat[index].audio),
                   );
                 },
               );

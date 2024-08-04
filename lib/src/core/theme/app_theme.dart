@@ -8,5 +8,5 @@ class AppTheme {
       textTheme: const TextTheme(
         bodyMedium: TextStyle(color: Colors.black, fontSize: 16),
       ),
-      appBarTheme: AppBarTheme(backgroundColor: Colors.white));
+      appBarTheme: const AppBarTheme(backgroundColor: Colors.white));
 }

@@ -37,13 +37,13 @@ class _LocationAndDateWidgetState extends State<LocationAndDateWidget> {
           },
           child: Text(
             widget.city.name,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 16,
               color: AppPallete.white,
             ),
           ),
         ),
-        SizedBox(
+        const SizedBox(
           height: 5,
         ),
         _datePicker(context, widget.dateTime),
@@ -73,8 +73,8 @@ class _LocationAndDateWidgetState extends State<LocationAndDateWidget> {
         }
       },
       child: Text(
-        "${DateFormat("EEEE, dd MMMM yyyy").format(dateTime)}",
-        style: TextStyle(fontSize: 16, color: AppPallete.white),
+        DateFormat("EEEE, dd MMMM yyyy").format(dateTime),
+        style: const TextStyle(fontSize: 16, color: AppPallete.white),
       ),
     );
   }

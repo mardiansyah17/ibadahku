@@ -11,7 +11,7 @@ class NoLocationScreen extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text("Anda belum memilih lokasi", style: TextStyle(fontSize: 20)),
+        const Text("Anda belum memilih lokasi", style: TextStyle(fontSize: 20)),
         const SizedBox(height: 10),
         AppButton(
           text: "Pilih lokasi",

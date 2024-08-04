@@ -9,7 +9,7 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
+  const MyHomePage({super.key, required this.title});
 
   final String title;
 
@@ -48,22 +48,22 @@ class _MyHomePageState extends State<MyHomePage> {
     DateTime(2021, 8, 10),
     DateTime(2021, 8, 13),
   ];
-  List<DateTime?> _singleDatePickerValueWithDefaultValue = [
+  final List<DateTime?> _singleDatePickerValueWithDefaultValue = [
     DateTime.now().add(const Duration(days: 1)),
   ];
-  List<DateTime?> _multiDatePickerValueWithDefaultValue = [
+  final List<DateTime?> _multiDatePickerValueWithDefaultValue = [
     DateTime(today.year, today.month, 1),
     DateTime(today.year, today.month, 5),
     DateTime(today.year, today.month, 14),
     DateTime(today.year, today.month, 17),
     DateTime(today.year, today.month, 25),
   ];
-  List<DateTime?> _rangeDatePickerValueWithDefaultValue = [
+  final List<DateTime?> _rangeDatePickerValueWithDefaultValue = [
     DateTime(1999, 5, 6),
     DateTime(1999, 5, 21),
   ];
 
-  List<DateTime?> _rangeDatePickerWithActionButtonsWithValue = [
+  final List<DateTime?> _rangeDatePickerWithActionButtonsWithValue = [
     DateTime.now(),
     DateTime.now().add(const Duration(days: 5)),
   ];

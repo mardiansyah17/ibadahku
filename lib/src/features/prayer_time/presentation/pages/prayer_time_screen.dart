@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ibadahku/src/core/theme/app_pallete.dart';
@@ -11,7 +9,6 @@ import 'package:ibadahku/src/features/prayer_time/presentation/widgets/location_
 import 'package:ibadahku/src/features/prayer_time/presentation/widgets/prayer_time_count_down_widget.dart';
 import 'package:ibadahku/src/features/prayer_time/presentation/widgets/prayer_time_list_widget.dart';
 import 'package:intl/intl.dart';
-import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 
 class PrayerTimeScreen extends StatefulWidget {
   const PrayerTimeScreen({super.key});
