@@ -9,6 +9,11 @@ sealed class PlaySoundEvent extends Equatable {
 
 class PlayAyat extends PlaySoundEvent {
   final String url;
+  final String id;
 
-  const PlayAyat({required this.url});
+  const PlayAyat({required this.url, required this.id});
+}
+
+class StopAyat extends PlaySoundEvent {
+  const StopAyat();
 }

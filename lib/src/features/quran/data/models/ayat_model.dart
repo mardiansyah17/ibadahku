@@ -2,9 +2,10 @@ import 'package:ibadahku/src/features/quran/domain/entities/ayat.dart';
 
 class AyatModel extends Ayat {
   AyatModel({
+    required super.id,
+    required super.number,
     required super.arab,
     required super.audio,
-    required super.id,
     required super.latin,
     required super.terjemahan,
     super.noteNumber,
@@ -13,9 +14,10 @@ class AyatModel extends Ayat {
 
   factory AyatModel.fromJson(Map<String, dynamic> json) {
     return AyatModel(
+      id: json['id'],
+      number: json['ayah'],
       arab: json['arab'],
       audio: json['audio'],
-      id: json['ayah'],
       latin: json['latin'],
       terjemahan: json['text'],
       noteNumber: json['notes']?.toString().substring(0, 2),

@@ -77,7 +77,6 @@ class _DetailSurahScreenState extends State<DetailSurahScreen> {
                   }
                   return ItemAyatWidget(
                     ayat: ayat[index],
-                    onTap: () => playAudio(ayat[index].audio),
                   );
                 },
               );

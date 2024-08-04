@@ -11,6 +11,13 @@ final class PlaySoundInitial extends PlaySoundState {}
 
 final class PlaySoundLoading extends PlaySoundState {}
 
-final class PlayingAyat extends PlaySoundState {}
+final class PlayingAyat extends PlaySoundState {
+  final String id;
 
-final class AyatStoped extends PlaySoundState {}
+  const PlayingAyat({required this.id});
+}
+
+final class AyatStoped extends PlaySoundState {
+  // final String id;
+  // const AyatStoped({required this.id});
+}
