@@ -44,7 +44,9 @@ class ItemAyatWidget extends StatelessWidget {
                           if (state is PlayingAyat && state.id == ayat.id) {
                             return ActionAyatWidget(
                               icon: Icons.stop,
-                              onTap: () {},
+                              onTap: () {
+                                context.read<PlaySoundBloc>().add(StopAyat());
+                              },
                             );
                           }
                           return ActionAyatWidget(
