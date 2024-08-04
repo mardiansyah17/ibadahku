@@ -4,7 +4,6 @@ import 'package:ibadahku/src/features/quran/domain/entities/ayat.dart';
 import 'package:ibadahku/src/features/quran/presentation/widgets/action_ayat_widget.dart';
 import 'package:ibadahku/src/features/quran/presentation/widgets/number_widget.dart';
 import 'package:ibadahku/src/features/quran/presentation/widgets/translate_widget.dart';
-import 'package:just_audio/just_audio.dart';
 
 class ItemAyatWidget extends StatelessWidget {
   const ItemAyatWidget({super.key, required this.ayat, this.onTap});
