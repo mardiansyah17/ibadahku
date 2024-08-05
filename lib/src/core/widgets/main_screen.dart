@@ -9,7 +9,7 @@ import 'package:lazy_load_indexed_stack/lazy_load_indexed_stack.dart';
 
 class MainScreen extends StatefulWidget {
   final int? index;
-  const MainScreen({super.key, this.index = 1});
+  const MainScreen({super.key, this.index = 2});
 
   @override
   State<MainScreen> createState() => _MainScreenState();
@@ -17,7 +17,7 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   int? _selectedIndex;
-  static const List<Widget> _widgetOptions = <Widget>[
+  static List<Widget> _widgetOptions = <Widget>[
     PrayerTimeScreen(),
     QuranScreen(),
     KiblahScreen(),
