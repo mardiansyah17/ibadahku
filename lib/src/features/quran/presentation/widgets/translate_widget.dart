@@ -40,7 +40,7 @@ class TranslateWidget extends StatelessWidget {
         ),
       );
     }
-    log(noteText.toString()[0]);
+
     List<InlineSpan> spans = [];
     int start = 0;
     int index = translate.indexOf(noteNumber!);

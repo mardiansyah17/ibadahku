@@ -26,9 +26,4 @@ class AyatModel extends Ayat {
       noteText: json['notes'],
     );
   }
-  String getNumber(String text) {
-    final regex = RegExp(r'^\d+');
-    final match = regex.firstMatch(text);
-    return match!.group(0)!;
-  }
 }

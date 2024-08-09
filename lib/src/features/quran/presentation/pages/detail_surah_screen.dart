@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ibadahku/src/core/widgets/app_loading.dart';
@@ -8,6 +6,7 @@ import 'package:ibadahku/src/features/quran/presentation/blocs/ayat_bloc/ayat_bl
 import 'package:ibadahku/src/features/quran/presentation/blocs/play_sound_bloc/play_sound_bloc.dart';
 import 'package:ibadahku/src/features/quran/presentation/widgets/item_ayat_widget.dart';
 import 'package:just_audio/just_audio.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 class DetailSurahScreen extends StatefulWidget {
   final String surat;
@@ -24,7 +23,14 @@ class DetailSurahScreen extends StatefulWidget {
 }
 
 class _DetailSurahScreenState extends State<DetailSurahScreen> {
-  final ScrollController _scrollController = ScrollController();
+  final ItemScrollController itemScrollController = ItemScrollController();
+  final ScrollOffsetController scrollOffsetController =
+      ScrollOffsetController();
+  final ItemPositionsListener itemPositionsListener =
+      ItemPositionsListener.create();
+  final ScrollOffsetListener scrollOffsetListener =
+      ScrollOffsetListener.create();
+
   final AudioPlayer _player = AudioPlayer();
   List<Ayat> ayat = [];
 
@@ -40,7 +46,16 @@ class _DetailSurahScreenState extends State<DetailSurahScreen> {
     context.read<AyatBloc>().add(GetAyatBySurah(
           surat: widget.surat,
         ));
-    _scrollController.addListener(_onScroll);
+
+    itemPositionsListener.itemPositions.addListener(() {
+      final lastItem = itemPositionsListener.itemPositions.value.last.index;
+      if (lastItem == int.parse(ayat.last.number) - 1) {
+        context.read<AyatBloc>().add(GetAyatBySurah(
+              surat: widget.surat,
+              lastAyat: int.parse(ayat.last.number),
+            ));
+      }
+    });
   }
 
   @override
@@ -55,6 +70,11 @@ class _DetailSurahScreenState extends State<DetailSurahScreen> {
             appBar: AppBar(
               title: Text(widget.name),
               surfaceTintColor: Colors.transparent,
+              actions: [
+                GestureDetector(
+                  child: Text("${ayat.length}/${widget.maxAyat}"),
+                )
+              ],
             ),
             body: BlocConsumer<AyatBloc, AyatState>(
               listener: (context, state) {
@@ -69,8 +89,11 @@ class _DetailSurahScreenState extends State<DetailSurahScreen> {
                   return const AppLoading();
                 }
 
-                return ListView.builder(
-                  controller: _scrollController,
+                return ScrollablePositionedList.builder(
+                  itemScrollController: itemScrollController,
+                  scrollOffsetController: scrollOffsetController,
+                  itemPositionsListener: itemPositionsListener,
+                  scrollOffsetListener: scrollOffsetListener,
                   itemCount: ayat.length,
                   itemBuilder: (context, index) {
                     if (state is AyatLoadingPagination &&
@@ -88,25 +111,9 @@ class _DetailSurahScreenState extends State<DetailSurahScreen> {
     );
   }
 
-  void _onScroll() {
-    if (_isBottom && ayat.length < widget.maxAyat) {
-      context.read<AyatBloc>().add(GetAyatBySurah(
-            surat: widget.surat,
-            lastAyat: int.parse(ayat.last.id),
-          ));
-    }
-  }
-
-  bool get _isBottom {
-    if (!_scrollController.hasClients) return false;
-
-    return _scrollController.position.pixels ==
-        _scrollController.position.maxScrollExtent;
-  }
-
-  @override
-  void dispose() {
-    _scrollController.dispose();
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   _scrollController.dispose();
+  //   super.dispose();
+  // }
 }
