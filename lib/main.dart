@@ -30,12 +30,9 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        theme: AppTheme.lightTheme,
-        debugShowCheckedModeBanner: false,
-        home: const DetailSurahScreen(
-          surat: "2",
-          maxAyat: 286,
-          name: "Al-Baqarah",
-        ));
+      theme: AppTheme.lightTheme,
+      debugShowCheckedModeBanner: false,
+      home: const MainScreen(),
+    );
   }
 }

@@ -70,11 +70,11 @@ class _DetailSurahScreenState extends State<DetailSurahScreen> {
             appBar: AppBar(
               title: Text(widget.name),
               surfaceTintColor: Colors.transparent,
-              actions: [
-                GestureDetector(
-                  child: Text("${ayat.length}/${widget.maxAyat}"),
-                )
-              ],
+              // actions: [
+              //   GestureDetector(
+              //     child: Text("${ayat.length}/${widget.maxAyat}"),
+              //   )
+              // ],
             ),
             body: BlocConsumer<AyatBloc, AyatState>(
               listener: (context, state) {

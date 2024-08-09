@@ -9,7 +9,7 @@ import 'package:lazy_load_indexed_stack/lazy_load_indexed_stack.dart';
 
 class MainScreen extends StatefulWidget {
   final int? index;
-  const MainScreen({super.key, this.index = 2});
+  const MainScreen({super.key, this.index = 0});
 
   @override
   State<MainScreen> createState() => _MainScreenState();
