@@ -1,7 +1,7 @@
 import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
-import 'package:equatable/equatable.dart';
+import 'package:flutter/foundation.dart';
 import 'package:ibadahku/src/features/prayer_time/domain/entities/city.dart';
 import 'package:ibadahku/src/features/prayer_time/domain/entities/prayer_time.dart';
 import 'package:ibadahku/src/features/prayer_time/domain/usecases/get_prayer_time.dart';
@@ -13,11 +13,22 @@ part 'prayer_time_state.dart';
 
 class PrayerTimeBloc extends Bloc<PrayerTimeEvent, PrayerTimeState> {
   final GetPrayerTime _getPrayerTime;
+
   PrayerTimeBloc({required GetPrayerTime getPrayerTime})
       : _getPrayerTime = getPrayerTime,
         super(PrayerTimeInitial()) {
-    on<PrayerTimeEvent>((event, emit) => emit(PrayerTimeLoading()));
+    on<PrayerTimeEvent>((event, emit) {});
     on<LoadPrayerTime>(_onLoadPrayerTime);
+    on<UpdateNextTime>((event, emit) {
+      if (state is PrayerTimeLoaded) {
+        emit(PrayerTimeLoaded(
+          date: (state as PrayerTimeLoaded).date,
+          city: (state as PrayerTimeLoaded).city,
+          prayerTime: (state as PrayerTimeLoaded).prayerTime,
+          nextTime: _getNextTime((state as PrayerTimeLoaded).prayerTime!),
+        ));
+      }
+    });
   }
 
   Future<void> _onLoadPrayerTime(
@@ -61,9 +72,8 @@ class PrayerTimeBloc extends Bloc<PrayerTimeEvent, PrayerTimeState> {
     prayerTime.toMap().forEach((key, item) {
       int jam = int.parse(item.split(":")[0]);
       int menit = int.parse(item.split(":")[1]);
-
       DateTime waktuSholat = DateTime(now.year, now.month, now.day, jam, menit);
-      log("${now.toString()} ${waktuSholat.toString()}");
+
       if (now.isBefore(waktuSholat)) {
         result.add({key: item});
       }

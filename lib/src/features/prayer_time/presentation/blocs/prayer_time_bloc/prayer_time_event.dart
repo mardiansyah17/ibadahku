@@ -1,14 +1,12 @@
 part of 'prayer_time_bloc.dart';
 
-abstract class PrayerTimeEvent extends Equatable {
-  const PrayerTimeEvent();
-
-  @override
-  List<Object> get props => [];
-}
+@immutable
+sealed class PrayerTimeEvent {}
 
 final class LoadPrayerTime extends PrayerTimeEvent {
   final String date;
 
-  const LoadPrayerTime({required this.date});
+  LoadPrayerTime({required this.date});
 }
+
+final class UpdateNextTime extends PrayerTimeEvent {}

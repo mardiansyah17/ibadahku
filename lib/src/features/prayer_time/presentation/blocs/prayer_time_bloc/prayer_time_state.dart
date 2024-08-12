@@ -1,11 +1,7 @@
 part of 'prayer_time_bloc.dart';
 
-abstract class PrayerTimeState extends Equatable {
-  const PrayerTimeState();
-
-  @override
-  List<Object> get props => [];
-}
+@immutable
+sealed class PrayerTimeState {}
 
 class PrayerTimeInitial extends PrayerTimeState {}
 
@@ -22,7 +18,7 @@ class PrayerTimeLoaded extends PrayerTimeState {
   final Map<String, String>? nextTime;
   final Map<String, String>? isyaTime;
 
-  const PrayerTimeLoaded({
+  PrayerTimeLoaded({
     required this.date,
     required this.city,
     this.prayerTime,

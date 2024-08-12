@@ -1,10 +1,13 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ibadahku/src/core/extensions/datetime_extension.dart';
 import 'package:ibadahku/src/core/extensions/string_extension.dart';
 import 'package:ibadahku/src/core/theme/app_pallete.dart';
 import 'package:ibadahku/src/features/prayer_time/domain/entities/prayer_time.dart';
+import 'package:ibadahku/src/features/prayer_time/presentation/blocs/prayer_time_bloc/prayer_time_bloc.dart';
 import 'package:intl/intl.dart';
 
 class PrayerTimeCountDownWidget extends StatefulWidget {
@@ -36,6 +39,7 @@ class _PrayerTimeCountDownWidgetState extends State<PrayerTimeCountDownWidget> {
   @override
   void dispose() {
     super.dispose();
+    log('close');
     _timer!.cancel();
   }
 
@@ -44,8 +48,14 @@ class _PrayerTimeCountDownWidgetState extends State<PrayerTimeCountDownWidget> {
         .parse("${widget.prayerTime.tanggal} ${widget.nextTime!.values.first}");
 
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      log(timer.tick.toString());
       DateTime now = DateTime.now();
       Duration rentang = waktuSholat.difference(now);
+      if (rentang.inSeconds < 0) {
+        timer.cancel();
+        context.read<PrayerTimeBloc>().add(UpdateNextTime());
+        return;
+      }
       setState(() {
         counterString =
             "${rentang.inHours} jam ${rentang.inMinutes.remainder(60)} menit ${rentang.inSeconds.remainder(60)} detik lagi";
