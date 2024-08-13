@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ibadahku/src/core/extensions/string_extension.dart';
 import 'package:ibadahku/src/core/theme/app_pallete.dart';
 
 class PrayerTimeItemWidget extends StatelessWidget {
@@ -35,7 +36,7 @@ class PrayerTimeItemWidget extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(name,
+          Text(name.toCapitalized(),
               style: TextStyle(
                 color: isActive ? Colors.white : AppPallete.primary,
               )),

@@ -48,7 +48,7 @@ class _PrayerTimeCountDownWidgetState extends State<PrayerTimeCountDownWidget> {
         .parse("${widget.prayerTime.tanggal} ${widget.nextTime!.values.first}");
 
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      log(timer.tick.toString());
+      // log(timer.tick.toString());
       DateTime now = DateTime.now();
       Duration rentang = waktuSholat.difference(now);
       if (rentang.inSeconds < 0) {

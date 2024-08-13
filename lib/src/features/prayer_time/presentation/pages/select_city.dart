@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:ibadahku/src/core/theme/app_pallete.dart';
+import 'package:ibadahku/src/core/widgets/app_loading.dart';
+import 'package:ibadahku/src/core/widgets/app_search_widget.dart';
 import 'package:ibadahku/src/core/widgets/main_screen.dart';
 import 'package:ibadahku/src/features/prayer_time/presentation/blocs/city_bloc/city_bloc.dart';
 import 'package:page_transition/page_transition.dart';
@@ -31,16 +32,17 @@ class _SelectCityState extends State<SelectCity> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: AddressInputWidget(
-            controller: controller,
+          surfaceTintColor: Colors.transparent,
+          title: AppSearchWidget(
+            onChanged: (value) =>
+                context.read<CityBloc>().add(SearchCityByQuery(value)),
+            title: "Cari Kota",
           ),
         ),
         body: BlocBuilder<CityBloc, CityState>(
           builder: (context, state) {
             if (state is CityLoading) {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
+              return const AppLoading();
             } else if (state is CityLoaded) {
               return ListView.builder(
                 itemCount: state.cities.length,
@@ -74,39 +76,5 @@ class _SelectCityState extends State<SelectCity> {
             }
           },
         ));
-  }
-}
-
-class AddressInputWidget extends StatelessWidget {
-  final TextEditingController controller;
-  const AddressInputWidget({
-    super.key,
-    required this.controller,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return TextField(
-      controller: controller,
-      style: const TextStyle(
-        color: Colors.black,
-        decorationThickness: 0,
-      ),
-      decoration: InputDecoration(
-        enabledBorder: OutlineInputBorder(
-          borderSide: const BorderSide(color: AppPallete.primary),
-          borderRadius: BorderRadius.circular(10),
-        ),
-        hintText: "Cari Kota",
-        prefixIcon: const Icon(Icons.search),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-          borderSide: const BorderSide(
-            color: AppPallete.primary,
-            width: 2,
-          ),
-        ),
-      ),
-    );
   }
 }

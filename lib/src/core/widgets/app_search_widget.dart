@@ -4,7 +4,9 @@ import 'package:ibadahku/src/core/theme/app_pallete.dart';
 class AppSearchWidget extends StatelessWidget {
   final ValueChanged<String>? onChanged;
   final FocusNode? focusNode;
-  const AppSearchWidget({super.key, this.onChanged, this.focusNode});
+  final String title;
+  const AppSearchWidget(
+      {super.key, required this.title, this.onChanged, this.focusNode});
 
   static OutlineInputBorder outlineInputBorder(
           {Color color = AppPallete.second, double width = 1}) =>
@@ -18,7 +20,10 @@ class AppSearchWidget extends StatelessWidget {
     return TextField(
       focusNode: focusNode,
       onChanged: onChanged,
-      style: const TextStyle(color: AppPallete.primary),
+      style: const TextStyle(
+        color: AppPallete.primary,
+        decorationThickness: 0,
+      ),
       decoration: InputDecoration(
         contentPadding: const EdgeInsets.all(10),
         hintText: "Cari Surah",

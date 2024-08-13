@@ -32,6 +32,7 @@ class _QuranScreenState extends State<QuranScreen> {
         appBar: AppBar(
           surfaceTintColor: Colors.transparent,
           title: AppSearchWidget(
+            title: "Cari Surah",
             focusNode: focusNode,
             onChanged: (query) {
               context.read<SurahBloc>().add(SearchSurah(name: query));
