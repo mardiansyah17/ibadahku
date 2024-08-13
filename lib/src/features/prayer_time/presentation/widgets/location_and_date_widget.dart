@@ -46,7 +46,11 @@ class _LocationAndDateWidgetState extends State<LocationAndDateWidget> {
         const SizedBox(
           height: 5,
         ),
-        _datePicker(context, widget.dateTime),
+        Text(
+          DateFormat("EEEE, dd MMMM yyyy").format(widget.dateTime),
+          style: const TextStyle(fontSize: 16, color: AppPallete.white),
+        )
+        // _datePicker(context, widget.dateTime),
       ],
     );
   }

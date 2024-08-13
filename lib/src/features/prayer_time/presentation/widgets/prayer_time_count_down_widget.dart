@@ -64,6 +64,15 @@ class _PrayerTimeCountDownWidgetState extends State<PrayerTimeCountDownWidget> {
   }
 
   @override
+  void didUpdateWidget(covariant PrayerTimeCountDownWidget oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.nextTime != oldWidget.nextTime) {
+      _timer?.cancel();
+      counter();
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Center(
       child: Column(

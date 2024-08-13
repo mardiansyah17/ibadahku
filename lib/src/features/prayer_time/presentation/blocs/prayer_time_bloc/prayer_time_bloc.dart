@@ -35,6 +35,7 @@ class PrayerTimeBloc extends Bloc<PrayerTimeEvent, PrayerTimeState> {
     LoadPrayerTime event,
     Emitter<PrayerTimeState> emit,
   ) async {
+    emit(PrayerTimeLoading());
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final cityId = prefs.getString('cityId');
     final cityName = prefs.getString('cityName');
