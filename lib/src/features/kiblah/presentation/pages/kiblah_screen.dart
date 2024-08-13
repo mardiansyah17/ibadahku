@@ -5,7 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_qiblah/flutter_qiblah.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:ibadahku/src/core/theme/app_pallete.dart';
+import 'package:ibadahku/src/core/widgets/app_button.dart';
 import 'package:ibadahku/src/core/widgets/app_loading.dart';
+import 'package:location/location.dart';
 
 class KiblahScreen extends StatefulWidget {
   const KiblahScreen({super.key});
@@ -17,7 +20,7 @@ class KiblahScreen extends StatefulWidget {
 class _KiblahScreenState extends State<KiblahScreen> {
   final _locationStreamController =
       StreamController<LocationStatus>.broadcast();
-
+  Location location = Location();
   Stream<LocationStatus> get stream => _locationStreamController.stream;
 
   @override
@@ -41,7 +44,6 @@ class _KiblahScreenState extends State<KiblahScreen> {
       child: StreamBuilder(
         stream: stream,
         builder: (context, AsyncSnapshot<LocationStatus> snapshot) {
-          print(snapshot.connectionState);
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const AppLoading();
           }
@@ -65,7 +67,26 @@ class _KiblahScreenState extends State<KiblahScreen> {
                 return const SizedBox();
             }
           } else {
-            return Text('error');
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset(
+                  'assets/animations/location.gif',
+                  width: 200,
+                ),
+                const SizedBox(height: 16),
+                const Text(
+                  'Aktifkan lokasi untuk melihat arah kiblat',
+                ),
+                const SizedBox(height: 16),
+                AppButton(
+                    text: "Aktifkan Lokasi",
+                    onPressed: () async {
+                      await location.requestService();
+                      _checkLocationStatus();
+                    }),
+              ],
+            );
           }
         },
       ),
@@ -86,7 +107,7 @@ class _KiblahScreenState extends State<KiblahScreen> {
 }
 
 class QiblahCompassWidget extends StatelessWidget {
-  final _compassSvg = SvgPicture.asset('assets/svg/compass.svg');
+  final _compassSvg = SvgPicture.asset('assets/svg/compass-qiblah.svg');
   final _needleSvg = SvgPicture.asset(
     'assets/svg/needle.svg',
     fit: BoxFit.contain,
@@ -107,23 +128,28 @@ class QiblahCompassWidget extends StatelessWidget {
 
         final qiblahDirection = snapshot.data!;
 
-        return Stack(
-          alignment: Alignment.center,
-          children: <Widget>[
-            Transform.rotate(
-              angle: (qiblahDirection.direction * (pi / 180) * -1),
-              child: _compassSvg,
-            ),
-            Transform.rotate(
-              angle: (qiblahDirection.qiblah * (pi / 180) * -1),
-              alignment: Alignment.center,
-              child: _needleSvg,
-            ),
-            Positioned(
-              bottom: 8,
-              child: Text("${qiblahDirection.offset.toStringAsFixed(3)}°"),
-            )
-          ],
+        return Container(
+          height: double.infinity,
+          child: Stack(
+            alignment: Alignment.center,
+            children: <Widget>[
+              Positioned(
+                top: 100,
+                child: Text(
+                  '${qiblahDirection.direction.toStringAsFixed(0)}°',
+                  style: const TextStyle(
+                    fontSize: 20,
+                    color: AppPallete.primary,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+              Transform.rotate(
+                angle: (qiblahDirection.direction * (pi / 180) * -1),
+                child: _compassSvg,
+              ),
+            ],
+          ),
         );
       },
     );
